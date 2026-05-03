@@ -12,15 +12,15 @@
   <!-- NAVBAR -->
   <nav class="navbar">
     <div class="navbar-logo">
-      <img src="car-icon.svg" alt="logo">
-      <span>RentCar</span>
+      <img src="image/logo.png" alt="logo">
+      <span>Rentiva</span>
     </div>
  
     <ul class="navbar-links">
       <li><a href="#">Ana Sayfa</a></li>
       <li><a href="araclar.html">Araçlar</a></li>
       <li><a href="#hakkimizda">Hakkımızda</a></li>
-      <li><a href="#">Hizmetler</a></li>
+        <li><a href="#hakkimizda">Hizmetler</a></li>
       <li><a href="#iletisim">İletişim</a></li>
     </ul>
  
@@ -32,14 +32,14 @@
   <!-- HERO -->
   <section class="hero">
     <div class="hero-content">
-      <h1>Yola Çıkmaya <br> Hazır <span>Mısın?</span></h1>
+      <h1>Aracını Kiralamaya <br> Hazır <span>Mısın?</span></h1>
       <p>En iyi araçları en uygun fiyatlarla kiralayın. <br> Güvenli, hızlı ve konforlu bir sürüş deneyimi.</p>
-      <a href="#" class="btn-hero">🚗 Araçları Keşfet</a>
+      <a href="araclar.html" class="btn-hero"> Araçları Keşfet</a>
     </div>
   </section>
 
   
-<section class="about-wrapper">
+<section class="about-wrapper" id="hakkimizda">
 
   <h2 class="section-title">Hakkımızda</h2>
 
@@ -95,8 +95,8 @@
         <h4>Hızlı Linkler</h4>
         <ul>
           <li><a href="#">Ana Sayfa</a></li>
-          <li><a href="#">Araçlar</a></li>
-          <li><a href="#hakkimizda">Hakkımızda</a></li>
+         <li><a href="araclar.html">Araçlar</a></li>
+          <li><a href="#hakkimizda" >Hakkımızda</a></li>
           <li><a href="#">Hizmetler</a></li>
           <li><a href="#iletisim">İletişim</a></li>
         </ul>
@@ -117,9 +117,9 @@
         <h4>İletişim</h4>
         <ul>
           <li>📍 İstanbul, Türkiye</li>
-          <li>📞 0555 555 55 55</li>
-          <li>✉️ info@rentacar.com</li>
-          <li>🕐 Her gün 7/24</li>
+          <li>📞 0545 602 90 52</li>
+          <li>✉️ info@rentiva.com</li>
+          <li>🕐 7/24 müşteri hizmetleri</li>
         </ul>
       </div>
  
@@ -132,6 +132,17 @@
       </span>
     </div>
   </footer>
+
+  <script>
+  window.addEventListener('scroll', () => {
+    const navbar = document.querySelector('.navbar');
+    if (window.scrollY > 50) {
+      navbar.classList.add('scrolled');
+    } else {
+      navbar.classList.remove('scrolled');
+    }
+  });
+</script>
  
 </body>
 </html>

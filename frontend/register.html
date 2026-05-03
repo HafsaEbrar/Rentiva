@@ -9,13 +9,17 @@
 <body>
  
   <!-- ÜSTTE SEÇIM EKRANI -->
+   
   <div class="register-page" id="selectionScreen">
     <div class="register-bg">
       <div class="register-bg-overlay"></div>
     </div>
  
  <div class="register-top-bar">
-  <a href="index.html" class="logo">🚗 RentCar</a>
+ <a href="index.html" class="logo">
+  <img src="image/logo.png" alt="logo" style="width:36px; height:36px; object-fit:contain;">
+  <span>Rentiva</span>
+</a>
   
   <div class="top-bar-right">
     <span>Zaten hesabın var mı?</span>
@@ -59,31 +63,35 @@
  
       <div class="form-body">
         <h3 class="section-title">Kişisel Bilgiler</h3>
-        <div class="form-grid">
-          <div class="input-group">
-            <label>Ad Soyad</label>
-            <input type="text" id="k_adsoyad" placeholder="Adınızı ve soyadınızı giriniz">
-          </div>
-          <div class="input-group">
-            <label>E-posta</label>
-            <input type="email" id="k_email" placeholder="E-posta adresinizi giriniz">
-          </div>
-          <div class="input-group">
-            <label>Telefon</label>
-            <input type="tel" id="k_telefon" placeholder="Telefon numaranızı giriniz">
-          </div>
-          <div class="input-group">
-            <label>Şifre</label>
-            <div class="input-with-eye">
-              <input type="password" id="k_sifre" placeholder="Şifrenizi belirleyiniz">
-              <span onclick="togglePass('k_sifre')">👁️</span>
-            </div>
-          </div>
-          <div class="input-group full-width">
-            <label>Şifre Tekrar</label>
-            <input type="password" id="k_sifre2" placeholder="Şifrenizi tekrar giriniz">
-          </div>
-        </div>
+      <div class="form-grid">
+  <div class="input-group">
+    <label>Ad Soyad</label>
+    <input type="text" id="k_adsoyad" placeholder="Adınızı ve soyadınızı giriniz">
+  </div>
+  <div class="input-group">
+    <label>TC Kimlik No</label>
+    <input type="text" id="k_tc" placeholder="TC kimlik numaranızı giriniz" maxlength="11">
+  </div>
+  <div class="input-group">
+    <label>Telefon</label>
+    <input type="tel" id="k_telefon" placeholder="Telefon numaranızı giriniz">
+  </div>
+  <div class="input-group">
+    <label>E-posta</label>
+    <input type="email" id="k_email" placeholder="E-posta adresinizi giriniz">
+  </div>
+  <div class="input-group">
+    <label>Şifre</label>
+    <div class="input-with-eye">
+      <input type="password" id="k_sifre" placeholder="Şifrenizi belirleyiniz">
+      <span onclick="togglePass('k_sifre')">👁️</span>
+    </div>
+  </div>
+  <div class="input-group">
+    <label>Şifre Tekrar</label>
+    <input type="password" id="k_sifre2" placeholder="Şifrenizi tekrar giriniz">
+  </div>
+</div>
  
         <h3 class="section-title">Ehliyet Bilgileri</h3>
         <div class="form-grid">
@@ -122,47 +130,55 @@
  
       <div class="form-body">
         <h3 class="section-title">Kişisel Bilgiler</h3>
-        <div class="form-grid">
-          <div class="input-group">
-            <label>Ad Soyad</label>
-            <input type="text" id="y_adsoyad" placeholder="Adınızı ve soyadınızı giriniz">
-          </div>
-          <div class="input-group">
-            <label>E-posta</label>
-            <input type="email" id="y_email" placeholder="E-posta adresinizi giriniz">
-          </div>
-          <div class="input-group">
-            <label>Telefon</label>
-            <input type="tel" id="y_telefon" placeholder="Telefon numaranızı giriniz">
-          </div>
-          <div class="input-group">
-            <label>Şifre</label>
-            <div class="input-with-eye">
-              <input type="password" id="y_sifre" placeholder="Şifrenizi belirleyiniz">
-              <span onclick="togglePass('y_sifre')">👁️</span>
-            </div>
-          </div>
-          <div class="input-group full-width">
-            <label>Şifre Tekrar</label>
-            <input type="password" id="y_sifre2" placeholder="Şifrenizi tekrar giriniz">
-          </div>
-        </div>
+    <div class="form-grid">
+  <div class="input-group">
+    <label>Ad Soyad</label>
+    <input type="text" id="y_adsoyad" placeholder="Adınızı ve soyadınızı giriniz">
+  </div>
+  <div class="input-group">
+    <label>TC Kimlik No</label>
+    <input type="text" id="y_tc" placeholder="TC kimlik numaranızı giriniz" maxlength="11">
+  </div>
+  <div class="input-group">
+    <label>Telefon</label>
+    <input type="tel" id="y_telefon" placeholder="Telefon numaranızı giriniz">
+  </div>
+  <div class="input-group">
+    <label>E-posta</label>
+    <input type="email" id="y_email" placeholder="E-posta adresinizi giriniz">
+  </div>
+  <div class="input-group">
+    <label>Şifre</label>
+    <div class="input-with-eye">
+      <input type="password" id="y_sifre" placeholder="Şifrenizi belirleyiniz">
+      <span onclick="togglePass('y_sifre')">👁️</span>
+    </div>
+  </div>
+  <div class="input-group">
+    <label>Şifre Tekrar</label>
+    <input type="password" id="y_sifre2" placeholder="Şifrenizi tekrar giriniz">
+  </div>
+</div>
  
         <h3 class="section-title">Şirket Bilgileri</h3>
         <div class="form-grid">
-          <div class="input-group">
-            <label>Şirket Adı</label>
-            <input type="text" id="y_sirket" placeholder="Şirket adınızı giriniz">
-          </div>
-          <div class="input-group">
-            <label>Vergi No</label>
-            <input type="text" id="y_vergino" placeholder="Vergi numaranızı giriniz">
-          </div>
-          <div class="input-group full-width">
-            <label>Adres</label>
-            <textarea id="y_adres" placeholder="Şirket adresinizi giriniz"></textarea>
-          </div>
-        </div>
+  <div class="input-group">
+    <label>Şirket Adı</label>
+    <input type="text" id="y_sirket" placeholder="Şirket adınızı giriniz">
+  </div>
+  <div class="input-group">
+    <label>Vergi No</label>
+    <input type="text" id="y_vergino" placeholder="Vergi numaranızı giriniz">
+  </div>
+  <div class="input-group">
+    <label>Şirket Telefonu</label>
+    <input type="tel" id="y_sirket_tel" placeholder="Şirket telefon numarası">
+  </div>
+  <div class="input-group full-width">
+    <label>Adres</label>
+    <textarea id="y_adres" placeholder="Şirket adresinizi giriniz"></textarea>
+  </div>
+</div>
  
         <h3 class="section-title">Görev Bilgileri</h3>
         <div class="form-grid">
