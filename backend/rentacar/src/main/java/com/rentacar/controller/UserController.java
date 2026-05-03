@@ -45,8 +45,8 @@ public class UserController {
     }
 
     // ✅ LOGIN
-    @PostMapping("/login")
-    public User login(@RequestBody User user) {
-        return userService.login(user.getEmail(), user.getPassword());
-    }
+@PostMapping("/login")
+public User login(@RequestBody java.util.Map<String, String> body) {
+    return userService.login(body.get("email"), body.get("password"));
+}
 }
