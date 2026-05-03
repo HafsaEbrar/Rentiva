@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/users")
@@ -32,21 +33,30 @@ public class UserController {
         userService.deleteUser(id);
     }
 
-    // ✅ REGISTER USER
     @PostMapping("/register")
-    public User register(@RequestBody User user) {
+    public User register(@RequestBody Map<String, String> body) {
+        User user = new User();
+        user.setFullName(body.get("fullName"));
+        user.setNationalId(body.get("nationalId"));
+        user.setEmail(body.get("email"));
+        user.setPhone(body.get("phone"));
+        user.setPassword(body.get("password"));
         return userService.register(user);
     }
 
-    // ✅ REGISTER ADMIN
     @PostMapping("/register-admin")
-    public User registerAdmin(@RequestBody User user) {
+    public User registerAdmin(@RequestBody Map<String, String> body) {
+        User user = new User();
+        user.setFullName(body.get("fullName"));
+        user.setNationalId(body.get("nationalId"));
+        user.setEmail(body.get("email"));
+        user.setPhone(body.get("phone"));
+        user.setPassword(body.get("password"));
         return userService.registerAdmin(user);
     }
 
-    // ✅ LOGIN
-@PostMapping("/login")
-public User login(@RequestBody java.util.Map<String, String> body) {
-    return userService.login(body.get("email"), body.get("password"));
-}
+    @PostMapping("/login")
+    public User login(@RequestBody Map<String, String> body) {
+        return userService.login(body.get("email"), body.get("password"));
+    }
 }
