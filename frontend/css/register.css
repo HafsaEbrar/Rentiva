@@ -42,13 +42,17 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 24px 60px;
+  padding: 20px 40px;
 }
  
 .logo {
-  font-size: 22px;
-  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 10px;
   color: white;
+  text-decoration: none;
+  font-size: 20px;
+  font-weight: 700;
 }
  
 .top-bar-right {
@@ -107,7 +111,7 @@ body {
   text-align: center;
 }
  
-.selection-card.active {
+.selection-card:hover {
   border-color: #1a6dff;
 }
  
@@ -148,10 +152,6 @@ body {
   transition: all 0.2s;
 }
  
-.btn-select.active {
-  background-color: #1a6dff;
-  color: white;
-}
  
 /* ===== FORM EKRANI ===== */
 .form-screen {

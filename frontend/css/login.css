@@ -15,6 +15,11 @@ body {
   display: flex;
   height: 100vh;
 }
+.logo img {
+  width: 50px;
+  height: 5
+  object-fit: contain;
+}
  
 /* ===== SOL TARAF ===== */
 .login-left {

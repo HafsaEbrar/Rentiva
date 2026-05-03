@@ -34,10 +34,11 @@ document.getElementById('btnYonetici').addEventListener('click', (e) => {
 });
  
 function showForm(type) {
+  history.pushState({screen: 'form'}, '', 'register.html');
   document.getElementById('selectionScreen').style.display = 'none';
   document.getElementById('kullaniciForm').style.display = 'none';
   document.getElementById('yoneticiForm').style.display = 'none';
- 
+
   if (type === 'kullanici') {
     document.getElementById('kullaniciForm').style.display = 'block';
   } else {
@@ -46,10 +47,17 @@ function showForm(type) {
 }
  
 function goBack() {
+  history.pushState(null, '', 'register.html');
   document.getElementById('kullaniciForm').style.display = 'none';
   document.getElementById('yoneticiForm').style.display = 'none';
   document.getElementById('selectionScreen').style.display = 'flex';
 }
+
+window.addEventListener('popstate', () => {
+  document.getElementById('kullaniciForm').style.display = 'none';
+  document.getElementById('yoneticiForm').style.display = 'none';
+  document.getElementById('selectionScreen').style.display = 'flex';
+});
  
 // Şifre göster/gizle
 function togglePass(id) {
