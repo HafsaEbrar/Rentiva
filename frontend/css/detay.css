@@ -1,0 +1,675 @@
+/* =====================================================
+   detay.css  –  RentCar Araç Detay Sayfası
+   ===================================================== */
+
+/* ---------- RESET / BASE ---------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Outfit", sans-serif;
+  background: #f4f6fb;
+  color: #1a1f36;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+ul {
+  list-style: none;
+}
+
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* ---------- NAVBAR ---------- */
+.navbar {
+  background: #0d1117;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.3);
+}
+
+.nav-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 32px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+}
+.logo-img {
+  height: 36px;
+  width: auto;
+  display: block;
+}
+
+.nav-links {
+  display: flex;
+  gap: 36px;
+  flex: 1;
+  justify-content: center;
+}
+.nav-links a {
+  font-size: 0.92rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.75);
+  transition: color 0.2s;
+  white-space: nowrap;
+}
+.nav-links a:hover {
+  color: #fff;
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+}
+
+.btn-login {
+  background: #1d4ed8;
+  color: #fff;
+  padding: 9px 22px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: background 0.2s;
+  white-space: nowrap;
+}
+.btn-login:hover {
+  background: #2563eb;
+}
+
+.hamburger {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 1.3rem;
+  cursor: pointer;
+  color: #fff;
+  margin-left: 16px;
+}
+
+/* ---------- BREADCRUMB ---------- */
+.breadcrumb {
+  background: #fff;
+  border-bottom: 1px solid #e8eaf0;
+}
+.breadcrumb .container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  font-size: 0.875rem;
+  color: #6b7280;
+}
+.breadcrumb a {
+  color: #6b7280;
+  transition: color 0.2s;
+}
+.breadcrumb a:hover {
+  color: #1d4ed8;
+}
+.breadcrumb span {
+  color: #1d4ed8;
+  font-weight: 500;
+}
+.breadcrumb i {
+  font-size: 0.7rem;
+  color: #9ca3af;
+}
+
+/* ---------- MAIN LAYOUT ---------- */
+.detay-main {
+  display: grid;
+  grid-template-columns: 1fr 420px;
+  gap: 28px;
+  padding-top: 32px;
+  padding-bottom: 60px;
+  align-items: start;
+}
+
+/* ---------- GALERİ ---------- */
+.galeri {
+  background: #fff;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.07);
+  margin-bottom: 24px;
+}
+
+.galeri-ana {
+  position: relative;
+  height: 360px;
+  overflow: hidden;
+  background: #0f172a;
+}
+
+.galeri-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: opacity 0.3s;
+}
+
+.musait-badge {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  background: #d1fae5;
+  color: #065f46;
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 5px 14px;
+  border-radius: 20px;
+  z-index: 2;
+}
+
+.galeri-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.9);
+  border: none;
+  cursor: pointer;
+  font-size: 0.9rem;
+  color: #374151;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 3;
+  transition:
+    background 0.2s,
+    transform 0.2s;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+.galeri-btn:hover {
+  background: #fff;
+  transform: translateY(-50%) scale(1.08);
+}
+.galeri-btn.prev {
+  left: 14px;
+}
+.galeri-btn.next {
+  right: 14px;
+}
+
+.galeri-thumb {
+  display: flex;
+  gap: 10px;
+  padding: 14px;
+  background: #fff;
+}
+
+.thumb {
+  width: calc(20% - 8px);
+  height: 78px;
+  object-fit: cover;
+  border-radius: 8px;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition:
+    border-color 0.2s,
+    opacity 0.2s;
+  opacity: 0.7;
+}
+.thumb:hover {
+  opacity: 0.9;
+}
+.thumb.active {
+  border-color: #1d4ed8;
+  opacity: 1;
+}
+
+/* ---------- AÇIKLAMA KARTI ---------- */
+.aciklama-card,
+.teknik-card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 28px;
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.07);
+  margin-bottom: 24px;
+}
+
+.aciklama-card h2,
+.teknik-card h2 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin-bottom: 14px;
+  color: #1a1f36;
+}
+
+.aciklama-card p {
+  font-size: 0.93rem;
+  color: #4b5563;
+  line-height: 1.75;
+  margin-bottom: 20px;
+}
+
+.ozellik-ikonlar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px 28px;
+}
+
+.oz-ikon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.78rem;
+  color: #374151;
+  font-weight: 500;
+}
+.oz-ikon i {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: #eff6ff;
+  color: #1d4ed8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+}
+
+/* ---------- TEKNİK GRID ---------- */
+.teknik-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+}
+
+.teknik-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 16px 0;
+  border-bottom: 1px solid #f0f2f8;
+}
+.teknik-item:nth-child(n + 4) {
+  border-bottom: none;
+}
+
+.teknik-label {
+  font-size: 0.78rem;
+  color: #6b7280;
+  font-weight: 500;
+}
+.teknik-val {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #1a1f36;
+}
+
+/* ---------- BİLGİ KARTI (sağ) ---------- */
+.bilgi-card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 28px;
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.07);
+  margin-bottom: 18px;
+}
+
+.bilgi-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 18px;
+}
+
+.arac-adi {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #1a1f36;
+}
+.arac-kategori {
+  font-size: 0.83rem;
+  color: #6b7280;
+  margin-top: 2px;
+  display: block;
+}
+
+.fiyat-box {
+  text-align: right;
+}
+.fiyat {
+  font-size: 1.7rem;
+  font-weight: 700;
+  color: #1d4ed8;
+}
+.fiyat-gun {
+  font-size: 0.85rem;
+  color: #6b7280;
+  margin-left: 3px;
+}
+
+.arac-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 20px;
+  padding: 16px 0;
+  border-top: 1px solid #f0f2f8;
+  border-bottom: 1px solid #f0f2f8;
+  margin-bottom: 20px;
+}
+.arac-meta span {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 0.88rem;
+  color: #374151;
+  font-weight: 500;
+}
+.arac-meta i {
+  color: #1d4ed8;
+  font-size: 0.95rem;
+}
+
+.ozellikler h3 {
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 14px;
+  color: #1a1f36;
+}
+
+.oz-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.oz-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.87rem;
+  color: #374151;
+}
+.oz-item i {
+  color: #1d4ed8;
+  font-size: 1rem;
+}
+
+/* ---------- REZERVASYON KARTI ---------- */
+.rezervasyon-card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 28px;
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.07);
+}
+
+.rezervasyon-card h3 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: #1a1f36;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.form-group label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #374151;
+}
+
+.input-icon {
+  position: relative;
+}
+.input-icon i {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #9ca3af;
+  font-size: 0.9rem;
+  pointer-events: none;
+}
+.input-icon .select-arrow {
+  font-size: 0.75rem;
+}
+
+.form-input {
+  width: 100%;
+  padding: 10px 36px 10px 12px;
+  border: 1.5px solid #e5e7eb;
+  border-radius: 10px;
+  font-size: 0.88rem;
+  font-family: "Outfit", sans-serif;
+  color: #374151;
+  background: #fff;
+  appearance: none;
+  -webkit-appearance: none;
+  transition: border-color 0.2s;
+  outline: none;
+}
+.form-input:focus {
+  border-color: #1d4ed8;
+}
+
+/* ---------- TOPLAM FİYAT ---------- */
+.toplam-fiyat {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 0 20px;
+  border-top: 1px solid #f0f2f8;
+  margin-top: 6px;
+}
+
+.toplam-fiyat > span {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #1a1f36;
+}
+
+.toplam-tutar {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1d4ed8;
+}
+.toplam-gun {
+  font-size: 0.83rem;
+  color: #6b7280;
+  margin-left: 5px;
+}
+
+/* ---------- REZERVASYON BUTONU ---------- */
+.btn-rezervasyon {
+  width: 100%;
+  padding: 14px;
+  background: #1d4ed8;
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 600;
+  font-family: "Outfit", sans-serif;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition:
+    background 0.2s,
+    transform 0.15s;
+  box-shadow: 0 4px 14px rgba(29, 78, 216, 0.3);
+}
+.btn-rezervasyon:hover {
+  background: #1e40af;
+  transform: translateY(-1px);
+}
+.btn-rezervasyon:active {
+  transform: translateY(0);
+}
+
+/* ---------- MODAL ---------- */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s;
+}
+.modal-overlay.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.modal {
+  background: #fff;
+  border-radius: 20px;
+  padding: 44px 40px;
+  text-align: center;
+  max-width: 400px;
+  width: 90%;
+  transform: translateY(20px);
+  transition: transform 0.3s;
+}
+.modal-overlay.active .modal {
+  transform: translateY(0);
+}
+
+.modal-icon i {
+  font-size: 3.5rem;
+  color: #10b981;
+  margin-bottom: 16px;
+}
+
+.modal h2 {
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+.modal p {
+  font-size: 0.92rem;
+  color: #6b7280;
+  line-height: 1.7;
+  margin-bottom: 24px;
+}
+
+.btn-modal-kapat {
+  padding: 11px 36px;
+  background: #1d4ed8;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  font-family: "Outfit", sans-serif;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.btn-modal-kapat:hover {
+  background: #1e40af;
+}
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width: 1024px) {
+  .detay-main {
+    grid-template-columns: 1fr;
+  }
+  .detay-sag {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+  .bilgi-card,
+  .rezervasyon-card {
+    margin-bottom: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .nav-links,
+  .nav-right {
+    display: none;
+  }
+  .hamburger {
+    display: block;
+  }
+
+  .detay-sag {
+    grid-template-columns: 1fr;
+  }
+
+  .galeri-ana {
+    height: 260px;
+  }
+
+  .teknik-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .teknik-item:nth-child(n + 4) {
+    border-bottom: 1px solid #f0f2f8;
+  }
+  .teknik-item:nth-last-child(-n + 2) {
+    border-bottom: none;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .bilgi-header {
+    flex-direction: column;
+    gap: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .ozellik-ikonlar {
+    gap: 14px 18px;
+  }
+  .oz-ikon {
+    font-size: 0.72rem;
+  }
+  .oz-grid {
+    grid-template-columns: 1fr;
+  }
+  .galeri-thumb {
+    overflow-x: auto;
+    flex-wrap: nowrap;
+  }
+  .thumb {
+    min-width: 80px;
+  }
+}

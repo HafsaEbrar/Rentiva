@@ -16,16 +16,52 @@
       <span>RentCar</span>
     </div>
     <ul class="navbar-links">
-      <li><a href="index.html">Ana Sayfa</a></li>
-      <li><a href="araclar.html" class="active-link">Araçlar</a></li>
-      <li><a href="index.html#hakkimizda">Hakkımızda</a></li>
-      <li><a href="#">Hizmetler</a></li>
-      <li><a href="index.html#iletisim">İletişim</a></li>
-    </ul>
+  <li><a href="index.html">Ana Sayfa</a></li>
+
+  <li>
+    <a href="araclar.html" class="active-link">
+      Araçlar
+    </a>
+  </li>
+
+  <li>
+    <a href="index.html#hakkimizda">
+      Hakkımızda
+    </a>
+  </li>
+
+  <li><a href="#">Hizmetler</a></li>
+
+  <li>
+    <a href="index.html#iletisim">
+      İletişim
+    </a>
+  </li>
+
+  <li>
+    <a href="rezervasyonlarim.html">
+      Rezervasyonlarım
+    </a>
+  </li>
+</ul>
     <div class="navbar-buttons">
-      <a href="login.html" class="btn-solid">Giriş / Kayıt</a>
-    </div>
-  </nav>
+
+  <a href="rezervasyonlarim.html"
+     class="btn-solid">
+
+     Rezervasyonlarım
+
+  </a>
+
+  <button onclick="logout()"
+          class="btn-solid">
+
+      Çıkış Yap
+
+  </button>
+
+</div>
+</nav>
  
   <!-- ARAÇLAR SAYFASI -->
   <div class="araclar-layout">
@@ -116,7 +152,9 @@
         </div>
       </div>
  
-      <button class="btn-filtre-uygula" onclick="filtrele()">⚙️ Filtreleri Uygula</button>
+      <button
+       type="button" class="btn-filtre-uygula"id="filtreBtn">⚙️ Filtreleri Uygula
+      </button>
       <button class="btn-filtre-temizle" onclick="temizleFiltre()">🔄 Temizle</button>
     </aside>
  
@@ -145,8 +183,21 @@
     </div>
  
   </div>
- 
   <script src="js/araclar.js"></script>
-</body>
-</html>
+  <script>
+    document
+    .getElementById("filtreBtn").addEventListener("click", filtrele);
+
+   </script>
+
+    function logout() {
+
+    localStorage.clear();
+
+    window.location.href = "login.html";
+}
+
+ </script>
+ </body>
+ </html>
  

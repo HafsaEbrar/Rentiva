@@ -53,6 +53,9 @@ public class VehicleService {
         if (updated.getDescription() != null)
             existing.setDescription(updated.getDescription());
 
+        if (updated.getImageUrl() != null)
+           existing.setImageUrl(updated.getImageUrl());
+
         if (updated.getHasAirConditioning() != null)
             existing.setHasAirConditioning(updated.getHasAirConditioning());
 

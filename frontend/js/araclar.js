@@ -8,12 +8,15 @@ window.onload = () => {
   araclariGetir();
 };
  
-// ===== API'DEN ARAÇLARI ÇEK =====
+
 async function araclariGetir() {
   try {
-    const response = await fetch('http://localhost:5000/api/araclar/musteri');
+    const token = localStorage.getItem('token');
+    const response = await fetch('http://localhost:8080/api/vehicles', {
+      headers: token ? { 'Authorization': 'Bearer ' + token } : {}
+    });
     const data = await response.json();
- 
+
     if (response.ok) {
       tumAraclar = data;
       filtreliAraclar = [...tumAraclar];
@@ -45,32 +48,26 @@ function araclariGoster() {
   grid.innerHTML = sayfadakiler.map(arac => kartHTML(arac)).join('');
   paginationGoster();
 }
- 
-// ===== KART HTML =====
-function kartHTML(arac) {
-  const gorsel = arac.gorsel_url
-    ? `<img src="${arac.gorsel_url}" alt="${arac.marka} ${arac.model_adi}">`
-    : `<span class="no-image">🚗</span>`;
- 
+ function kartHTML(arac) {
   return `
     <div class="arac-kart">
       <div class="kart-gorsel">
-        ${gorsel}
-        <button class="favori-btn">🤍</button>
+        ${arac.imageUrl 
+      ? `<img src="http://127.0.0.1:5500/${arac.imageUrl}" alt="${arac.plateNo}" style="width:100%; height:100%; object-fit:cover; border-radius:8px;">` 
+      : `<span class="no-image">🚗</span>`}
+
       </div>
       <div class="kart-icerik">
-        <div class="kart-baslik">${arac.marka} ${arac.model_adi}</div>
-        <div class="kart-bilgi">${arac.kategori} • ${arac.yil} • ${arac.vites_turu}</div>
-        <span class="kart-yakit yakit-${arac.yakit_turu}">${arac.yakit_turu}</span>
+        <div class="kart-baslik">${arac.plateNo}</div>
+        <div class="kart-bilgi">${arac.year ? arac.year : '-'} • ${arac.status ? arac.status : '-'}</div>
         <div class="kart-detaylar">
-          <span>🕐 ${arac.kilometre ? Number(arac.kilometre).toLocaleString('tr-TR') + ' km' : '-'}</span>
-          <span>👥 5 Koltuk</span>
+          <span>🅰️ ${arac.hasAirConditioning ? 'Klima var' : 'Klima yok'}</span>
         </div>
         <div class="kart-alt">
           <div class="kart-fiyat">
-            ₺${Number(arac.gunluk_ucret).toLocaleString('tr-TR')} <span>/gün</span>
+            ₺${arac.dailyPrice ? Number(arac.dailyPrice).toLocaleString('tr-TR') : '-'} <span>/gün</span>
           </div>
-          <a href="arac-detay.html?id=${arac.arac_id}" class="btn-detay">Detaylar</a>
+          <a href="arac-detay.html?id=${arac.id}" class="btn-detay">Detaylar</a>
         </div>
       </div>
     </div>
@@ -79,49 +76,67 @@ function kartHTML(arac) {
  
 // ===== FİLTRELE =====
 function filtrele() {
-  const maxFiyat = parseInt(document.getElementById('maxFiyatRange').value);
-  const minYil = document.getElementById('minYil').value;
-  const maxYil = document.getElementById('maxYil').value;
- 
-  // Seçili kategoriler
-  const kategoriCheckbox = [...document.querySelectorAll('.filtre-grup:nth-child(2) input[type=checkbox]')];
-  const secilenKategoriler = kategoriCheckbox.filter(c => c.checked && c.value !== '').map(c => c.value);
- 
-  // Seçili yakıt türleri
-  const yakitCheckbox = [...document.querySelectorAll('.filtre-grup:nth-child(3) input[type=checkbox]')];
-  const secilenYakitlar = yakitCheckbox.filter(c => c.checked).map(c => c.value);
- 
-  // Seçili vites türleri
-  const vitesCheckbox = [...document.querySelectorAll('.filtre-grup:nth-child(4) input[type=checkbox]')];
-  const secilenVites = vitesCheckbox.filter(c => c.checked).map(c => c.value);
- 
+   console.log("filtre çalıştı");
+
+  const maxFiyat =
+    parseInt(document.getElementById('maxFiyatRange').value);
+
+  const minYil =
+    document.getElementById('minYil').value;
+
+  const maxYil =
+    document.getElementById('maxYil').value;
+
   filtreliAraclar = tumAraclar.filter(arac => {
-    if (secilenKategoriler.length > 0 && !secilenKategoriler.includes(arac.kategori)) return false;
-    if (secilenYakitlar.length > 0 && !secilenYakitlar.includes(arac.yakit_turu)) return false;
-    if (secilenVites.length > 0 && !secilenVites.includes(arac.vites_turu)) return false;
-    if (arac.gunluk_ucret > maxFiyat) return false;
-    if (minYil && arac.yil < parseInt(minYil)) return false;
-    if (maxYil && arac.yil > parseInt(maxYil)) return false;
+
+    if (arac.dailyPrice > maxFiyat)
+      return false;
+
+    if (minYil && arac.year < parseInt(minYil))
+      return false;
+
+    if (maxYil && arac.year > parseInt(maxYil))
+      return false;
+
     return true;
   });
- 
+
   mevcutSayfa = 1;
+
   araclariGoster();
 }
  
 // ===== SIRALA =====
 function sirala() {
-  const siralama = document.getElementById('siralama').value;
- 
+
+  const siralama =
+    document.getElementById('siralama').value;
+
   if (siralama === 'fiyat-asc') {
-    filtreliAraclar.sort((a, b) => a.gunluk_ucret - b.gunluk_ucret);
-  } else if (siralama === 'fiyat-desc') {
-    filtreliAraclar.sort((a, b) => b.gunluk_ucret - a.gunluk_ucret);
-  } else if (siralama === 'yil-desc') {
-    filtreliAraclar.sort((a, b) => b.yil - a.yil);
+
+    filtreliAraclar.sort(
+      (a, b) => a.dailyPrice - b.dailyPrice
+    );
+
   }
- 
+
+  else if (siralama === 'fiyat-desc') {
+
+    filtreliAraclar.sort(
+      (a, b) => b.dailyPrice - a.dailyPrice
+    );
+
+  }
+
+  else if (siralama === 'yil-desc') {
+
+    filtreliAraclar.sort(
+      (a, b) => b.year - a.year
+    );
+  }
+
   mevcutSayfa = 1;
+
   araclariGoster();
 }
  

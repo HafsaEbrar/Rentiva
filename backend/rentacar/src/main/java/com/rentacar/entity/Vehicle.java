@@ -19,6 +19,7 @@ public class Vehicle {
     private Double dailyPrice;
     private String status;
     private String description;
+    private String imageUrl;
 
     private Boolean hasAirConditioning;
     private Boolean hasChildSeat;
