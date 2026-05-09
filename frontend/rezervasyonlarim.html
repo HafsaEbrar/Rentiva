@@ -51,7 +51,7 @@ async function rezervasyonlariGetir() {
 
     container.innerHTML = "";
 
-    data.forEach(r => {
+    data.filter(r => r.status !== "CANCELLED").forEach(r => {
 
         container.innerHTML += `
 
@@ -69,6 +69,9 @@ async function rezervasyonlariGetir() {
 
                 <p>Toplam:
                 ₺${r.totalAmount}</p>
+                <button onclick="rezervasyonIptal(${r.id})">
+
+                    İptal Et </button>
 
             </div>
 
@@ -77,7 +80,26 @@ async function rezervasyonlariGetir() {
 }
 
 rezervasyonlariGetir();
+async function rezervasyonIptal(id) {
 
+    const response = await fetch(
+        `http://localhost:8080/api/reservations/${id}/cancel`,
+        {
+            method: "PUT"
+        }
+    );
+
+    if(response.ok){
+
+        alert("Rezervasyon iptal edildi");
+
+        rezervasyonlariGetir();
+
+    }else{
+
+        alert("İptal işlemi başarısız");
+    }
+}
 </script>
 
 </body>

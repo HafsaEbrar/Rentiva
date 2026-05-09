@@ -9,60 +9,67 @@
 </head>
 <body>
  
-  <!-- NAVBAR -->
   <nav class="navbar">
-    <div class="navbar-logo">
-      <img src="car-icon.svg" alt="logo">
-      <span>RentCar</span>
-    </div>
-    <ul class="navbar-links">
-  <li><a href="index.html">Ana Sayfa</a></li>
 
-  <li>
-    <a href="araclar.html" class="active-link">
-      Araçlar
-    </a>
-  </li>
+  <div class="navbar-logo">
+    <img src="car-icon.svg" alt="logo">
+    <span>RentCar</span>
+  </div>
 
-  <li>
-    <a href="index.html#hakkimizda">
-      Hakkımızda
-    </a>
-  </li>
+  <ul class="navbar-links">
 
-  <li><a href="#">Hizmetler</a></li>
+    <li>
+      <a href="index.html">
+        Ana Sayfa
+      </a>
+    </li>
 
-  <li>
-    <a href="index.html#iletisim">
-      İletişim
-    </a>
-  </li>
+    <li>
+      <a href="araclar.html" class="active-link">
+        Araçlar
+      </a>
+    </li>
 
-  <li>
-    <a href="rezervasyonlarim.html">
-      Rezervasyonlarım
-    </a>
-  </li>
-</ul>
-    <div class="navbar-buttons">
+    <li>
+      <a href="index.html#hakkimizda">
+        Hakkımızda
+      </a>
+    </li>
 
-  <a href="rezervasyonlarim.html"
-     class="btn-solid">
+    <li>
+      <a href="#">
+        Hizmetler
+      </a>
+    </li>
 
-     Rezervasyonlarım
+    <li>
+      <a href="index.html#iletisim">
+        İletişim
+      </a>
+    </li>
 
-  </a>
+    <li>
+      <a href="rezervasyonlarim.html">
+        Rezervasyonlarım
+      </a>
+    </li>
 
-  <button onclick="logout()"
-          class="btn-solid">
+  </ul>
+
+  <div class="navbar-buttons">
+
+    <button
+      type="button"
+      onclick="logout()"
+      class="btn-solid">
 
       Çıkış Yap
 
-  </button>
+    </button>
 
-</div>
+  </div>
+
 </nav>
- 
   <!-- ARAÇLAR SAYFASI -->
   <div class="araclar-layout">
  
@@ -184,20 +191,24 @@
  
   </div>
   <script src="js/araclar.js"></script>
-  <script>
-    document
-    .getElementById("filtreBtn").addEventListener("click", filtrele);
 
-   </script>
+<script>
 
-    function logout() {
+document
+.getElementById("filtreBtn")
+.addEventListener("click", filtrele);
+
+window.logout = function () {
 
     localStorage.clear();
 
-    window.location.href = "login.html";
-}
+    alert("Çıkış yapıldı");
 
- </script>
- </body>
- </html>
+    window.location.href = "login.html";
+};
+
+</script>
+
+</body>
+</html>
  
