@@ -107,7 +107,7 @@ function kartHTML(arac) {
           <div class="kart-fiyat">
             ${fiyat}<span> /gün</span>
           </div>
-          <a href="arac-detay.html?id=${arac.id}" class="btn-detay">İncele &rsaquo;</a>
+          <a href="detay.html?id=${arac.id}" class="btn-detay">İncele &rsaquo;</a>
         </div>
       </div>
     </div>
