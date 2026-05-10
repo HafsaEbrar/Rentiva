@@ -21,7 +21,8 @@
         <li><a href="index.html#iletisim">İletişim</a></li>
         <li><a href="rezervasyonlarim.html">Rezervasyonlarım</a></li>
       </ul>
-      <div class="navbar-buttons" id=""authButtons">
+      <div class="navbar-buttons" id="navbarButtons">
+        <!-- JS tarafından doldurulur -->
       </div>
     </nav>
 
@@ -203,11 +204,28 @@
     <script>
       document.getElementById("filtreBtn").addEventListener("click", filtrele);
 
-      window.logout = function () {
+      function navbarGuncelle() {
+        const token = localStorage.getItem("token");
+        const navbarButtons = document.getElementById("navbarButtons");
+
+        if (token) {
+          navbarButtons.innerHTML = `
+          <a href="rezervasyonlarim.html" class="auth-btn" style="background:transparent; border:1px solid rgba(255,255,255,0.3);">Rezervasyonlarım</a>
+          <button onclick="cikisYap()" class="auth-btn">Çıkış Yap</button>
+        `;
+        } else {
+          navbarButtons.innerHTML = `
+          <a href="login.html" class="auth-btn">Giriş / Kayıt</a>
+        `;
+        }
+      }
+
+      function cikisYap() {
         localStorage.clear();
-        alert("Çıkış yapıldı");
         window.location.href = "login.html";
-      };
+      }
+
+      navbarGuncelle();
     </script>
   </body>
 </html>
