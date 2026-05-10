@@ -244,3 +244,32 @@ function sayfaDegistir(sayfa) {
   araclariGoster();
   window.scrollTo({ top: 0, behavior: "smooth" });
 }
+// ===== AUTH BUTTON =====
+
+function authKontrol() {
+  const authButtons = document.getElementById("authButtons");
+
+  const token = localStorage.getItem("token");
+
+  if (token) {
+    authButtons.innerHTML = `
+      <button type="button" onclick="logout()" class="btn-solid">
+        Çıkış Yap
+      </button>
+    `;
+  } else {
+    authButtons.innerHTML = `
+      <a href="login.html" class="btn-solid">
+        Giriş Yap / Kayıt Ol
+      </a>
+    `;
+  }
+}
+
+window.logout = function () {
+  localStorage.removeItem("token");
+
+  alert("Çıkış yapıldı");
+
+  window.location.href = "login.html";
+};

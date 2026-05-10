@@ -9,7 +9,9 @@
 body {
   background: #f1f5f9;
 }
-
+body {
+  padding-top: 90px;
+}
 .araclar-layout {
   display: flex;
   gap: 24px;
@@ -558,4 +560,20 @@ input[type="range"] {
     width: 100%;
     text-align: center;
   }
+}
+.navbar {
+  height: 80px;
+  z-index: 9999;
+}
+
+.navbar-logo img {
+  width: 42px;
+  height: 42px;
+  object-fit: contain;
+}
+
+.navbar-buttons {
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
