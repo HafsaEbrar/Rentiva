@@ -1,363 +1,561 @@
+/* ===== ACTIVE LINK ===== */
 .active-link {
   color: white !important;
-  border-bottom: 2px solid #1a6dff;
-  padding-bottom: 2px;
+  border-bottom: 2px solid #2563eb;
+  padding-bottom: 3px;
 }
- 
-/* ===== LAYOUT ===== */
+
+/* ===== SAYFA ===== */
+body {
+  background: #f1f5f9;
+}
+
 .araclar-layout {
   display: flex;
-  min-height: calc(100vh - 60px);
-  background-color: #f4f6f9;
+  gap: 24px;
+  padding: 28px 32px;
+  min-height: calc(100vh - 80px);
+  max-width: 1600px;
+  margin: 0 auto;
 }
- 
+
 /* ===== FİLTRE PANELİ ===== */
 .filtre-panel {
   width: 270px;
   min-width: 270px;
-  background-color: white;
-  padding: 24px;
-  border-right: 1px solid #e5e7eb;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
+  background: #fff;
+  border-radius: 16px;
+  padding: 22px 20px;
+  height: fit-content;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
 }
- 
+
 .filtre-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 8px;
+  margin-bottom: 4px;
 }
- 
+
 .filtre-header h3 {
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 700;
-  color: #0f1b2d;
+  color: #0f172a;
 }
- 
-.filtre-grup {
-  padding: 16px 0;
-  border-bottom: 1px solid #e5e7eb;
-}
- 
-.filtre-grup h4 {
+
+.btn-temizle-link {
+  background: none;
+  border: none;
+  color: #2563eb;
   font-size: 14px;
-  font-weight: 700;
-  color: #0f1b2d;
-  margin-bottom: 12px;
+  cursor: pointer;
+  font-weight: 500;
+  padding: 0;
 }
- 
-.filtre-item {
+
+.btn-temizle-link:hover {
+  text-decoration: underline;
+}
+
+/* Filtre grupları */
+.filtre-grup {
+  border-top: 1px solid #e2e8f0;
+  padding: 16px 0 4px;
+  margin-top: 4px;
+}
+
+.filtre-grup h4 {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: #64748b;
+  margin-bottom: 10px;
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
+}
+
+.filtre-icon {
+  font-size: 14px;
+}
+
+/* Tarih inputları */
+.tarih-grup {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.tarih-label {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  color: #94a3b8;
+}
+
+.tarih-input {
+  width: 100%;
+  padding: 9px 12px;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
   font-size: 14px;
   color: #374151;
+  background: #f8fafc;
+  box-sizing: border-box;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.tarih-input:focus {
+  border-color: #2563eb;
+  background: white;
+}
+
+/* Select dropdown */
+.filtre-select {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid #e2e8f0;
+  background: #f8fafc;
+  font-size: 14px;
+  color: #374151;
+  outline: none;
   cursor: pointer;
-  padding: 4px 0;
+  transition: border-color 0.2s;
+  appearance: auto;
+  margin-bottom: 10px;
 }
- 
-.filtre-item input[type="checkbox"] {
-  accent-color: #1a6dff;
-  width: 16px;
-  height: 16px;
+
+.filtre-select:focus {
+  border-color: #2563eb;
+  background: white;
 }
- 
+
+/* Fiyat aralığı */
 .price-range {
   display: flex;
   justify-content: space-between;
+  margin-bottom: 10px;
   font-size: 13px;
-  color: #6b7280;
-  margin-bottom: 8px;
+  font-weight: 600;
+  color: #374151;
 }
- 
+
 input[type="range"] {
   width: 100%;
-  accent-color: #1a6dff;
+  accent-color: #2563eb;
+  margin-bottom: 10px;
 }
- 
+
+/* Yıl aralığı */
 .yil-range {
   display: flex;
   gap: 8px;
 }
- 
-.yil-range select {
-  flex: 1;
-  padding: 8px;
-  border: 1px solid #e5e7eb;
-  border-radius: 6px;
-  font-size: 13px;
-  color: #374151;
-  outline: none;
+
+.yil-range .filtre-select {
+  width: 50%;
 }
- 
-.btn-filtre-uygula {
-  margin-top: 8px;
-  padding: 12px;
-  background-color: #1a6dff;
-  color: white;
-  border: none;
-  border-radius: 8px;
+
+/* Filtre butonları */
+.btn-filtre-uygula,
+.btn-filtre-temizle {
+  width: 100%;
+  padding: 11px;
+  border-radius: 10px;
   font-size: 14px;
   font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.2s;
+  margin-top: 10px;
+  transition: 0.2s;
 }
- 
+
+.btn-filtre-uygula {
+  background: #2563eb;
+  color: white;
+  border: none;
+}
+
 .btn-filtre-uygula:hover {
-  background-color: #0055dd;
+  background: #1d4ed8;
 }
- 
+
 .btn-filtre-temizle {
-  padding: 10px;
-  background: transparent;
-  border: 1px solid #e5e7eb;
-  border-radius: 8px;
-  font-size: 14px;
-  color: #6b7280;
-  cursor: pointer;
-  transition: all 0.2s;
+  background: white;
+  border: 1px solid #e2e8f0;
+  color: #374151;
 }
- 
+
 .btn-filtre-temizle:hover {
-  border-color: #1a6dff;
-  color: #1a6dff;
+  border-color: #2563eb;
+  color: #2563eb;
 }
- 
-/* ===== ARAÇ LİSTESİ ===== */
+
+/* ===== SAĞ TARAF ===== */
 .arac-listesi {
   flex: 1;
-  padding: 24px;
+  min-width: 0;
 }
- 
+
 .liste-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 20px;
-  color: #6b7280;
-  font-size: 14px;
 }
- 
+
+#aracSayisi {
+  font-size: 16px;
+  color: #374151;
+  font-weight: 500;
+}
+
+#aracSayisi strong {
+  font-weight: 700;
+  color: #0f172a;
+}
+
 .siralama {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
 }
- 
-.siralama label {
-  font-size: 14px;
-  color: #374151;
-}
- 
+
 .siralama select {
-  padding: 6px 12px;
-  border: 1px solid #e5e7eb;
-  border-radius: 6px;
+  padding: 9px 14px;
+  border-radius: 10px;
+  border: 1px solid #e2e8f0;
+  background: white;
   font-size: 14px;
   color: #374151;
   outline: none;
+  cursor: pointer;
 }
- 
+
 .view-btn {
-  padding: 6px 10px;
-  border: 1px solid #e5e7eb;
-  border-radius: 6px;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  border: 1px solid #e2e8f0;
   background: white;
   cursor: pointer;
   font-size: 16px;
-  color: #6b7280;
-  transition: all 0.2s;
+  transition: 0.2s;
+  color: #64748b;
 }
- 
+
 .view-btn.active {
-  background-color: #1a6dff;
+  background: #2563eb;
   color: white;
-  border-color: #1a6dff;
+  border-color: #2563eb;
 }
- 
-/* ===== ARAÇ GRID ===== */
+
+/* ===== GRID ===== */
 .arac-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 20px;
 }
- 
-.arac-grid.list-view {
-  grid-template-columns: 1fr;
-}
- 
-.yukleniyor {
-  grid-column: 1 / -1;
-  text-align: center;
-  padding: 60px;
-  color: #6b7280;
-  font-size: 15px;
-}
- 
-/* ===== ARAÇ KARTI ===== */
+
+/* ===== KART ===== */
 .arac-kart {
   background: white;
-  border-radius: 12px;
+  border-radius: 16px;
   overflow: hidden;
-  border: 1px solid #e5e7eb;
-  transition: box-shadow 0.2s, transform 0.2s;
-}
- 
-.arac-kart:hover {
-  box-shadow: 0 8px 24px rgba(0,0,0,0.1);
-  transform: translateY(-2px);
-}
- 
-.kart-gorsel {
+  border: 1px solid #e2e8f0;
+  transition:
+    transform 0.25s,
+    box-shadow 0.25s;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
   position: relative;
-  height: 160px;
-  background-color: #f4f6f9;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+}
+
+.arac-kart:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.11);
+}
+
+/* Görsel alanı */
+.kart-gorsel {
+  width: 100%;
+  height: 210px;
+  background: #f1f5f9;
+  position: relative;
   overflow: hidden;
 }
- 
+
 .kart-gorsel img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  display: block;
 }
- 
-.kart-gorsel .no-image {
+
+.no-image {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-size: 48px;
-  color: #d1d5db;
+  height: 100%;
+  color: #cbd5e1;
 }
- 
+
+/* Yıl badge */
+.kart-yil-badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  background: #2563eb;
+  color: white;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 6px;
+}
+
+/* Favori butonu */
 .favori-btn {
   position: absolute;
   top: 10px;
   right: 10px;
-  background: white;
-  border: none;
+  width: 34px;
+  height: 34px;
   border-radius: 50%;
-  width: 32px;
-  height: 32px;
+  border: none;
+  background: rgba(255, 255, 255, 0.92);
+  cursor: pointer;
+  font-size: 16px;
   display: flex;
   align-items: center;
   justify-content: center;
-  cursor: pointer;
-  font-size: 16px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-  transition: transform 0.2s;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  transition: 0.2s;
 }
- 
+
 .favori-btn:hover {
+  background: white;
   transform: scale(1.1);
 }
- 
+
+/* Kart içeriği */
 .kart-icerik {
-  padding: 16px;
+  padding: 16px 18px 18px;
 }
- 
-.kart-baslik {
-  font-size: 16px;
-  font-weight: 700;
-  color: #0f1b2d;
-  margin-bottom: 4px;
-}
- 
-.kart-bilgi {
-  font-size: 12px;
-  color: #6b7280;
-  margin-bottom: 10px;
-}
- 
-.kart-yakit {
+
+/* Tip badge */
+.kart-tip-badge {
   display: inline-block;
-  padding: 3px 10px;
+  padding: 3px 12px;
   border-radius: 20px;
   font-size: 12px;
-  font-weight: 600;
-  margin-bottom: 12px;
+  font-weight: 500;
+  border: 1px solid #bfdbfe;
+  color: #1d4ed8;
+  background: #eff6ff;
+  margin-bottom: 10px;
 }
- 
-.yakit-Benzin   { background: #dbeafe; color: #1d4ed8; }
-.yakit-Dizel    { background: #fef3c7; color: #92400e; }
-.yakit-Hibrit   { background: #d1fae5; color: #065f46; }
-.yakit-Elektrik { background: #ede9fe; color: #5b21b6; }
-.yakit-LPG      { background: #fce7f3; color: #9d174d; }
- 
+
+.kart-baslik {
+  font-size: 22px;
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: 6px;
+}
+
+.kart-bilgi {
+  color: #64748b;
+  font-size: 13px;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.kart-bilgi .dot {
+  color: #cbd5e1;
+}
+
+/* Detay chip'leri (5 Kişi • Otomatik • Benzin) */
 .kart-detaylar {
   display: flex;
-  gap: 16px;
-  font-size: 12px;
-  color: #6b7280;
-  margin-bottom: 14px;
-  padding-top: 12px;
-  border-top: 1px solid #f3f4f6;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 16px;
 }
- 
+
+.detay-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 500;
+  background: #f1f5f9;
+  color: #475569;
+  border: 1px solid #e2e8f0;
+}
+
+/* Alt alan: fiyat + buton */
 .kart-alt {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  border-top: 1px solid #f1f5f9;
+  padding-top: 14px;
+  margin-top: 4px;
 }
- 
+
 .kart-fiyat {
-  font-size: 20px;
+  font-size: 26px;
   font-weight: 800;
-  color: #0f1b2d;
+  color: #2563eb;
+  line-height: 1;
 }
- 
+
 .kart-fiyat span {
   font-size: 13px;
+  color: #94a3b8;
   font-weight: 400;
-  color: #6b7280;
+  margin-left: 2px;
 }
- 
+
 .btn-detay {
-  padding: 8px 16px;
-  border: 1px solid #1a6dff;
-  border-radius: 6px;
-  background: transparent;
-  color: #1a6dff;
-  font-size: 13px;
-  cursor: pointer;
+  padding: 9px 18px;
+  border-radius: 10px;
+  border: 1px solid #e2e8f0;
+  color: #374151;
+  background: white;
   text-decoration: none;
-  transition: all 0.2s;
+  font-weight: 600;
+  font-size: 14px;
+  transition: 0.2s;
+  white-space: nowrap;
 }
- 
+
 .btn-detay:hover {
-  background-color: #1a6dff;
+  background: #2563eb;
   color: white;
+  border-color: #2563eb;
 }
- 
-/* ===== PAGİNATION ===== */
+
+/* ===== LIST VIEW ===== */
+.arac-grid.list-view {
+  grid-template-columns: 1fr;
+}
+
+.arac-grid.list-view .arac-kart {
+  display: flex;
+  flex-direction: row;
+}
+
+.arac-grid.list-view .kart-gorsel {
+  width: 260px;
+  min-width: 260px;
+  height: auto;
+}
+
+.arac-grid.list-view .kart-icerik {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* ===== YÜKLENİYOR / BOŞ ===== */
+.yukleniyor {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 60px 20px;
+  color: #94a3b8;
+  font-size: 16px;
+}
+
+/* ===== PAGINATION ===== */
 .pagination {
   display: flex;
   justify-content: center;
-  align-items: center;
   gap: 8px;
-  margin-top: 32px;
+  margin-top: 40px;
 }
- 
+
 .page-btn {
-  width: 36px;
-  height: 36px;
-  border-radius: 8px;
-  border: 1px solid #e5e7eb;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  border: 1px solid #e2e8f0;
   background: white;
-  color: #374151;
-  font-size: 14px;
   cursor: pointer;
-  transition: all 0.2s;
+  font-size: 14px;
+  font-weight: 500;
+  color: #374151;
+  transition: 0.2s;
 }
- 
+
+.page-btn:hover:not(:disabled) {
+  border-color: #2563eb;
+  color: #2563eb;
+}
+
 .page-btn.active {
-  background-color: #1a6dff;
+  background: #2563eb;
   color: white;
-  border-color: #1a6dff;
+  border-color: #2563eb;
 }
- 
-.page-btn:hover:not(.active) {
-  border-color: #1a6dff;
-  color: #1a6dff;
+
+.page-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 1200px) {
+  .arac-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 992px) {
+  .araclar-layout {
+    flex-direction: column;
+    padding: 16px;
+  }
+
+  .filtre-panel {
+    width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .liste-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .arac-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .arac-grid.list-view .arac-kart {
+    flex-direction: column;
+  }
+
+  .arac-grid.list-view .kart-gorsel {
+    width: 100%;
+    height: 210px;
+  }
+
+  .kart-alt {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .btn-detay {
+    width: 100%;
+    text-align: center;
+  }
 }
