@@ -9,16 +9,19 @@
 body {
   background: #f1f5f9;
 }
-body {
-  padding-top: 90px;
+
+/* Araçlar sayfasında navbar her zaman koyu */
+.navbar {
+  background: #0f1b2d !important;
 }
+
 .araclar-layout {
   display: flex;
   gap: 24px;
   padding: 28px 32px;
   min-height: calc(100vh - 80px);
   max-width: 1600px;
-  margin: 0 auto;
+  margin: 74px auto 0;
 }
 
 /* ===== FİLTRE PANELİ ===== */
@@ -560,20 +563,4 @@ input[type="range"] {
     width: 100%;
     text-align: center;
   }
-}
-.navbar {
-  height: 80px;
-  z-index: 9999;
-}
-
-.navbar-logo img {
-  width: 42px;
-  height: 42px;
-  object-fit: contain;
-}
-
-.navbar-buttons {
-  display: flex;
-  align-items: center;
-  gap: 12px;
 }

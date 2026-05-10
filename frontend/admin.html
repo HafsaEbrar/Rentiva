@@ -1,306 +1,379 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="tr">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>RentCar - Yönetici Paneli</title>
-  <link rel="stylesheet" href="css/admin.css">
-</head>
-<body>
- 
-  <div class="admin-layout">
- 
-    <!-- SIDEBAR -->
-    <aside class="sidebar">
-      <div class="sidebar-logo">
-        <span>🚗</span>
-        <strong>RentCar</strong>
-      </div>
- 
-      <div class="sidebar-section-label">GENEL</div>
-      <nav class="sidebar-nav">
-        <a href="#" class="nav-item active" onclick="showSection('dashboard')">🏠 Ana Sayfa</a>
-        <a href="#" class="nav-item" onclick="showSection('dashboard')">📊 Kontrol Paneli</a>
-      </nav>
- 
-      <div class="sidebar-section-label">ARAÇ YÖNETİMİ</div>
-      <nav class="sidebar-nav">
-        <a href="#" class="nav-item" onclick="showSection('araclar')">🚘 Araçlar</a>
-        <a href="#" class="nav-item" onclick="showSection('arac-ekle')">➕ Araç Ekle</a>
-        <a href="#" class="nav-item disabled">📂 Kategoriler</a>
-        <a href="#" class="nav-item disabled">⛽ Yakıt Türleri</a>
-        <a href="#" class="nav-item disabled">🏷️ Markalar</a>
-        <a href="#" class="nav-item disabled">🔧 Modeller</a>
-      </nav>
- 
-      <div class="sidebar-section-label">REZERVASYONLAR</div>
-      <nav class="sidebar-nav">
-        <a href="#" class="nav-item disabled">📋 Rezervasyonlar</a>
-        <a href="#" class="nav-item disabled">📅 Takvim</a>
-        <a href="#" class="nav-item disabled">👥 Müşteriler</a>
-      </nav>
- 
-      <div class="sidebar-section-label">BAKIM YÖNETİMİ</div>
-      <nav class="sidebar-nav">
-        <a href="#" class="nav-item disabled">🔧 Bakım Takvimi</a>
-        <a href="#" class="nav-item disabled">📜 Bakım Geçmişi</a>
-      </nav>
- 
-      <div class="sidebar-section-label">RAPORLAR</div>
-      <nav class="sidebar-nav">
-        <a href="#" class="nav-item disabled">💰 Gelir Raporu</a>
-        <a href="#" class="nav-item disabled">🚗 Araç Raporu</a>
-      </nav>
- 
-      <div class="sidebar-section-label">AYARLAR</div>
-      <nav class="sidebar-nav">
-        <a href="#" class="nav-item disabled">👤 Profil</a>
-        <a href="#" class="nav-item disabled">⚙️ Ayarlar</a>
-        <a href="login.html" class="nav-item logout">🚪 Çıkış Yap</a>
-      </nav>
-    </aside>
- 
-    <!-- ANA İÇERİK -->
-    <div class="main-content">
- 
-      <!-- ÜST BAR -->
-      <header class="topbar">
-        <div class="topbar-left">
-          <h2 id="pageTitle">Hoş geldiniz, Yönetici 👋</h2>
-          <p id="pageSubtitle">Araçlarınızı yönetin, rezervasyonları takip edin.</p>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rentiva - Yönetici Paneli</title>
+    <link rel="stylesheet" href="css/admin.css" />
+  </head>
+  <body>
+    <div class="admin-layout">
+      <!-- SIDEBAR -->
+      <aside class="sidebar">
+        <div class="sidebar-logo">
+          <img
+            src="image/logo.png"
+            alt="logo"
+            style="
+              width: 28px;
+              height: 28px;
+              filter: drop-shadow(0 0 6px rgba(26, 109, 255, 0.5));
+            "
+          />
+          <strong>Rentiva</strong>
         </div>
-        <div class="topbar-right">
-          <input type="text" placeholder="Araç, plaka, müşteri ara..." class="search-input">
-          <button class="icon-btn">🔔</button>
-          <button class="icon-btn">✉️</button>
-          <div class="admin-profile">
-            <div class="avatar">Y</div>
-            <div>
-              <strong>Yönetici</strong>
-              <span class="online">● Online</span>
-            </div>
-          </div>
-        </div>
-      </header>
- 
-      <!-- DASHBOARD -->
-      <section id="section-dashboard" class="section">
-        <div class="stat-cards">
-          <div class="stat-card blue">
-            <div class="stat-icon">🚗</div>
-            <div>
-              <div class="stat-value" id="statToplam">-</div>
-              <div class="stat-label">Toplam Araç</div>
-            </div>
-          </div>
-          <div class="stat-card green">
-            <div class="stat-icon">📋</div>
-            <div>
-              <div class="stat-value">-</div>
-              <div class="stat-label">Aktif Rezervasyon</div>
-            </div>
-          </div>
-          <div class="stat-card orange">
-            <div class="stat-icon">🔧</div>
-            <div>
-              <div class="stat-value">-</div>
-              <div class="stat-label">Bakımda Olan</div>
-            </div>
-          </div>
-          <div class="stat-card purple">
-            <div class="stat-icon">₺</div>
-            <div>
-              <div class="stat-value">-</div>
-              <div class="stat-label">Aylık Gelir</div>
-            </div>
-          </div>
-        </div>
- 
-        <div class="dashboard-hint">
-          <p>👈 Soldan <strong>Araçlar</strong> veya <strong>Araç Ekle</strong> seçeneğine tıklayın.</p>
-        </div>
-      </section>
- 
-      <!-- ARAÇ EKLE -->
-      <section id="section-arac-ekle" class="section" style="display:none;">
-        <div class="section-card">
-          <h3>Yeni Araç Ekle</h3>
-          <p class="section-desc">Araç bilgilerini girerek sisteme kaydedin.</p>
- 
-          <div class="form-tabs">
-            <button class="form-tab active" onclick="switchFormTab(this, 'arac-bilgileri')">Araç Bilgileri</button>
-            <button class="form-tab" onclick="switchFormTab(this, 'teknik-bilgiler')">Teknik Bilgiler</button>
-            <button class="form-tab" onclick="switchFormTab(this, 'ek-ozellikler')">Ek Özellikler</button>
-          </div>
- 
-          <!-- ARAÇ BİLGİLERİ -->
-          <div id="tab-arac-bilgileri" class="form-tab-content">
-            <div class="form-grid-3">
-              <div class="input-group">
-                <label>Plaka *</label>
-                <input type="text" id="plaka" placeholder="34 ABC 123">
-              </div>
-              <div class="input-group">
-                <label>Marka *</label>
-                <select id="marka">
-                  <option value="">Seçiniz</option>
-                  <option>BMW</option>
-                  <option>Mercedes</option>
-                  <option>Audi</option>
-                  <option>Volkswagen</option>
-                  <option>Toyota</option>
-                  <option>Honda</option>
-                  <option>Renault</option>
-                  <option>Ford</option>
-                  <option>Hyundai</option>
-                  <option>Kia</option>
-                </select>
-              </div>
-              <div class="input-group">
-                <label>Model *</label>
-                <input type="text" id="model_adi" placeholder="3.20i">
-              </div>
-              <div class="input-group">
-                <label>Kategori *</label>
-                <select id="kategori">
-                  <option value="">Seçiniz</option>
-                  <option>Sedan</option>
-                  <option>Hatchback</option>
-                  <option>SUV</option>
-                  <option>Coupe</option>
-                  <option>Minivan</option>
-                  <option>Pickup</option>
-                </select>
-              </div>
-              <div class="input-group">
-                <label>Yakıt Türü *</label>
-                <select id="yakit_turu">
-                  <option value="">Seçiniz</option>
-                  <option>Benzin</option>
-                  <option>Dizel</option>
-                  <option>Elektrik</option>
-                  <option>Hibrit</option>
-                  <option>LPG</option>
-                </select>
-              </div>
-              <div class="input-group">
-                <label>Vites Türü *</label>
-                <select id="vites_turu">
-                  <option value="">Seçiniz</option>
-                  <option>Otomatik</option>
-                  <option>Manuel</option>
-                  <option>Yarı Otomatik</option>
-                </select>
-              </div>
-              <div class="input-group">
-                <label>Yıl *</label>
-                <input type="number" id="yil" placeholder="2024" min="2000" max="2030">
-              </div>
-              <div class="input-group">
-                <label>Günlük Ücret (₺) *</label>
-                <input type="number" id="gunluk_ucret" placeholder="2500">
-              </div>
-              <div class="input-group">
-                <label>Araç Durumu *</label>
-                <select id="durum">
-                  <option value="uygun">Uygun</option>
-                  <option value="rezerve">Rezerve</option>
-                  <option value="bakimda">Bakımda</option>
-                </select>
-              </div>
-            </div>
-            <div class="input-group full-width">
-              <label>Açıklama</label>
-              <textarea id="aciklama" placeholder="Araç hakkında açıklama giriniz..." rows="3"></textarea>
-            </div>
-            <div class="input-group full-width">
-            <label>Araç Görseli (URL)</label>
-            <input type="text" id="gorsel_url" placeholder="https://example.com/arac.jpg">
 
+        <div class="sidebar-section-label">GENEL</div>
+        <nav class="sidebar-nav">
+          <a href="#" class="nav-item active" onclick="showSection('dashboard')"
+            >🏠 Ana Sayfa</a
+          >
+          <a href="#" class="nav-item" onclick="showSection('dashboard')"
+            >📊 Kontrol Paneli</a
+          >
+        </nav>
+
+        <div class="sidebar-section-label">ARAÇ YÖNETİMİ</div>
+        <nav class="sidebar-nav">
+          <a href="#" class="nav-item" onclick="showSection('araclar')"
+            >🚘 Araçlar</a
+          >
+          <a href="#" class="nav-item" onclick="showSection('arac-ekle')"
+            >➕ Araç Ekle</a
+          >
+          <a href="#" class="nav-item disabled">📂 Kategoriler</a>
+          <a href="#" class="nav-item disabled">⛽ Yakıt Türleri</a>
+          <a href="#" class="nav-item disabled">🏷️ Markalar</a>
+          <a href="#" class="nav-item disabled">🔧 Modeller</a>
+        </nav>
+
+        <div class="sidebar-section-label">REZERVASYONLAR</div>
+        <nav class="sidebar-nav">
+          <a href="#" class="nav-item disabled">📋 Rezervasyonlar</a>
+          <a href="#" class="nav-item disabled">📅 Takvim</a>
+          <a href="#" class="nav-item disabled">👥 Müşteriler</a>
+        </nav>
+
+        <div class="sidebar-section-label">BAKIM YÖNETİMİ</div>
+        <nav class="sidebar-nav">
+          <a href="#" class="nav-item disabled">🔧 Bakım Takvimi</a>
+          <a href="#" class="nav-item disabled">📜 Bakım Geçmişi</a>
+        </nav>
+
+        <div class="sidebar-section-label">RAPORLAR</div>
+        <nav class="sidebar-nav">
+          <a href="#" class="nav-item disabled">💰 Gelir Raporu</a>
+          <a href="#" class="nav-item disabled">🚗 Araç Raporu</a>
+        </nav>
+
+        <div class="sidebar-section-label">AYARLAR</div>
+        <nav class="sidebar-nav">
+          <a href="#" class="nav-item disabled">👤 Profil</a>
+          <a href="#" class="nav-item disabled">⚙️ Ayarlar</a>
+          <a href="login.html" class="nav-item logout">🚪 Çıkış Yap</a>
+        </nav>
+      </aside>
+
+      <!-- ANA İÇERİK -->
+      <div class="main-content">
+        <!-- ÜST BAR -->
+        <header class="topbar">
+          <div class="topbar-left">
+            <h2 id="pageTitle">Hoş geldiniz, Yönetici 👋</h2>
+            <p id="pageSubtitle">
+              Araçlarınızı yönetin, rezervasyonları takip edin.
+            </p>
           </div>
- 
-          <!-- TEKNİK BİLGİLER -->
-          <div id="tab-teknik-bilgiler" class="form-tab-content" style="display:none;">
-            <div class="form-grid-3">
-              <div class="input-group">
-                <label>Airbag Sayısı</label>
-                <input type="number" id="airbag_sayisi" placeholder="6">
+          <div class="topbar-right">
+            <input
+              type="text"
+              placeholder="Araç, plaka, müşteri ara..."
+              class="search-input"
+            />
+            <button class="icon-btn">🔔</button>
+            <button class="icon-btn">✉️</button>
+            <div class="admin-profile">
+              <div class="avatar">Y</div>
+              <div>
+                <strong>Yönetici</strong>
+                <span class="online">● Online</span>
               </div>
             </div>
-            <p class="coming-soon">Diğer teknik bilgiler yakında eklenecek.</p>
           </div>
- 
-          <!-- EK ÖZELLİKLER -->
-          <div id="tab-ek-ozellikler" class="form-tab-content" style="display:none;">
-            <div class="checkbox-grid">
-              <label class="checkbox-item">
-                <input type="checkbox" id="klima"> ❄️ Klima
-              </label>
-              <label class="checkbox-item">
-                <input type="checkbox" id="cocuk_koltugu"> 👶 Çocuk Koltuğu
-              </label>
-              <label class="checkbox-item">
-                <input type="checkbox" id="apple_carplay"> 📱 Apple CarPlay
-              </label>
-              <label class="checkbox-item">
-                <input type="checkbox" id="geri_kamera"> 📷 Geri Görüş Kamerası
-              </label>
-              <label class="checkbox-item">
-                <input type="checkbox" id="bluetooth"> 🎵 Bluetooth
-              </label>
-              <label class="checkbox-item">
-                <input type="checkbox" id="navigasyon"> 🗺️ Navigasyon
-              </label>
+        </header>
+
+        <!-- DASHBOARD -->
+        <section id="section-dashboard" class="section">
+          <div class="stat-cards">
+            <div class="stat-card blue">
+              <div class="stat-icon">🚗</div>
+              <div>
+                <div class="stat-value" id="statToplam">-</div>
+                <div class="stat-label">Toplam Araç</div>
+              </div>
+            </div>
+            <div class="stat-card green">
+              <div class="stat-icon">📋</div>
+              <div>
+                <div class="stat-value">-</div>
+                <div class="stat-label">Aktif Rezervasyon</div>
+              </div>
+            </div>
+            <div class="stat-card orange">
+              <div class="stat-icon">🔧</div>
+              <div>
+                <div class="stat-value">-</div>
+                <div class="stat-label">Bakımda Olan</div>
+              </div>
+            </div>
+            <div class="stat-card purple">
+              <div class="stat-icon">₺</div>
+              <div>
+                <div class="stat-value">-</div>
+                <div class="stat-label">Aylık Gelir</div>
+              </div>
             </div>
           </div>
- 
-          <div class="form-actions">
-            <button class="btn-temizle" onclick="temizleForm()">🔄 Temizle</button>
-            <button class="btn-kaydet" onclick="aracEkle()">🔧 Araç Kaydet</button>
+
+          <div class="dashboard-hint">
+            <p>
+              👈 Soldan <strong>Araçlar</strong> veya
+              <strong>Araç Ekle</strong> seçeneğine tıklayın.
+            </p>
           </div>
-        </div>
-      </section>
- 
-      <!-- ARAÇ LİSTESİ -->
-      <section id="section-araclar" class="section" style="display:none;">
-        <div class="section-card">
-          <div class="list-header">
-            <h3>Araç Listesi</h3>
-            <div class="list-actions">
-              <input type="text" placeholder="Araç ara..." class="search-input" oninput="araclariFiltrele(this.value)">
-              <button class="btn-kaydet" onclick="showSection('arac-ekle')">➕ Yeni Araç</button>
+        </section>
+
+        <!-- ARAÇ EKLE -->
+        <section id="section-arac-ekle" class="section" style="display: none">
+          <div class="section-card">
+            <h3>Yeni Araç Ekle</h3>
+            <p class="section-desc">
+              Araç bilgilerini girerek sisteme kaydedin.
+            </p>
+
+            <div class="form-tabs">
+              <button
+                class="form-tab active"
+                onclick="switchFormTab(this, 'arac-bilgileri')"
+              >
+                Araç Bilgileri
+              </button>
+              <button
+                class="form-tab"
+                onclick="switchFormTab(this, 'teknik-bilgiler')"
+              >
+                Teknik Bilgiler
+              </button>
+              <button
+                class="form-tab"
+                onclick="switchFormTab(this, 'ek-ozellikler')"
+              >
+                Ek Özellikler
+              </button>
+            </div>
+
+            <!-- ARAÇ BİLGİLERİ -->
+            <div id="tab-arac-bilgileri" class="form-tab-content">
+              <div class="form-grid-3">
+                <div class="input-group">
+                  <label>Plaka *</label>
+                  <input type="text" id="plaka" placeholder="34 ABC 123" />
+                </div>
+                <div class="input-group">
+                  <label>Marka *</label>
+                  <select id="marka">
+                    <option value="">Seçiniz</option>
+                    <option>BMW</option>
+                    <option>Mercedes</option>
+                    <option>Audi</option>
+                    <option>Volkswagen</option>
+                    <option>Toyota</option>
+                    <option>Honda</option>
+                    <option>Renault</option>
+                    <option>Ford</option>
+                    <option>Hyundai</option>
+                    <option>Kia</option>
+                  </select>
+                </div>
+                <div class="input-group">
+                  <label>Model *</label>
+                  <input type="text" id="model_adi" placeholder="3.20i" />
+                </div>
+                <div class="input-group">
+                  <label>Kategori *</label>
+                  <select id="kategori">
+                    <option value="">Seçiniz</option>
+                    <option>Sedan</option>
+                    <option>Hatchback</option>
+                    <option>SUV</option>
+                    <option>Coupe</option>
+                    <option>Minivan</option>
+                    <option>Pickup</option>
+                  </select>
+                </div>
+                <div class="input-group">
+                  <label>Yakıt Türü *</label>
+                  <select id="yakit_turu">
+                    <option value="">Seçiniz</option>
+                    <option>Benzin</option>
+                    <option>Dizel</option>
+                    <option>Elektrik</option>
+                    <option>Hibrit</option>
+                    <option>LPG</option>
+                  </select>
+                </div>
+                <div class="input-group">
+                  <label>Vites Türü *</label>
+                  <select id="vites_turu">
+                    <option value="">Seçiniz</option>
+                    <option>Otomatik</option>
+                    <option>Manuel</option>
+                    <option>Yarı Otomatik</option>
+                  </select>
+                </div>
+                <div class="input-group">
+                  <label>Yıl *</label>
+                  <input
+                    type="number"
+                    id="yil"
+                    placeholder="2024"
+                    min="2000"
+                    max="2030"
+                  />
+                </div>
+                <div class="input-group">
+                  <label>Günlük Ücret (₺) *</label>
+                  <input type="number" id="gunluk_ucret" placeholder="2500" />
+                </div>
+                <div class="input-group">
+                  <label>Araç Durumu *</label>
+                  <select id="durum">
+                    <option value="uygun">Uygun</option>
+                    <option value="rezerve">Rezerve</option>
+                    <option value="bakimda">Bakımda</option>
+                  </select>
+                </div>
+              </div>
+              <div class="input-group full-width">
+                <label>Açıklama</label>
+                <textarea
+                  id="aciklama"
+                  placeholder="Araç hakkında açıklama giriniz..."
+                  rows="3"
+                ></textarea>
+              </div>
+              <div class="input-group full-width">
+                <label>Araç Görseli (URL)</label>
+                <input
+                  type="text"
+                  id="gorsel_url"
+                  placeholder="https://example.com/arac.jpg"
+                />
+              </div>
+            </div>
+
+            <!-- TEKNİK BİLGİLER -->
+            <div
+              id="tab-teknik-bilgiler"
+              class="form-tab-content"
+              style="display: none"
+            >
+              <div class="form-grid-3">
+                <div class="input-group">
+                  <label>Airbag Sayısı</label>
+                  <input type="number" id="airbag_sayisi" placeholder="6" />
+                </div>
+              </div>
+              <p class="coming-soon">
+                Diğer teknik bilgiler yakında eklenecek.
+              </p>
+            </div>
+
+            <!-- EK ÖZELLİKLER -->
+            <div
+              id="tab-ek-ozellikler"
+              class="form-tab-content"
+              style="display: none"
+            >
+              <div class="checkbox-grid">
+                <label class="checkbox-item">
+                  <input type="checkbox" id="klima" /> ❄️ Klima
+                </label>
+                <label class="checkbox-item">
+                  <input type="checkbox" id="cocuk_koltugu" /> 👶 Çocuk Koltuğu
+                </label>
+                <label class="checkbox-item">
+                  <input type="checkbox" id="apple_carplay" /> 📱 Apple CarPlay
+                </label>
+                <label class="checkbox-item">
+                  <input type="checkbox" id="geri_kamera" /> 📷 Geri Görüş
+                  Kamerası
+                </label>
+                <label class="checkbox-item">
+                  <input type="checkbox" id="bluetooth" /> 🎵 Bluetooth
+                </label>
+                <label class="checkbox-item">
+                  <input type="checkbox" id="navigasyon" /> 🗺️ Navigasyon
+                </label>
+              </div>
+            </div>
+
+            <div class="form-actions">
+              <button class="btn-temizle" onclick="temizleForm()">
+                🔄 Temizle
+              </button>
+              <button class="btn-kaydet" onclick="aracEkle()">
+                🔧 Araç Kaydet
+              </button>
             </div>
           </div>
- 
-          <div class="table-wrapper">
-            <table class="arac-table">
-              <thead>
-                <tr>
-                  <th>Plaka</th>
-                  <th>Araç</th>
-                  <th>Kategori</th>
-                  <th>Yakıt</th>
-                  <th>Vites</th>
-                  <th>Yıl</th>
-                  <th>Günlük Ücret</th>
-                  <th>Durum</th>
-                  <th>İşlemler</th>
-                </tr>
-              </thead>
-              <tbody id="aracTableBody">
-                <tr>
-                  <td colspan="9" class="empty-row">Henüz araç eklenmedi.</td>
-                </tr>
-              </tbody>
-            </table>
+        </section>
+
+        <!-- ARAÇ LİSTESİ -->
+        <section id="section-araclar" class="section" style="display: none">
+          <div class="section-card">
+            <div class="list-header">
+              <h3>Araç Listesi</h3>
+              <div class="list-actions">
+                <input
+                  type="text"
+                  placeholder="Araç ara..."
+                  class="search-input"
+                  oninput="araclariFiltrele(this.value)"
+                />
+                <button class="btn-kaydet" onclick="showSection('arac-ekle')">
+                  ➕ Yeni Araç
+                </button>
+              </div>
+            </div>
+
+            <div class="table-wrapper">
+              <table class="arac-table">
+                <thead>
+                  <tr>
+                    <th>Plaka</th>
+                    <th>Araç</th>
+                    <th>Kategori</th>
+                    <th>Yakıt</th>
+                    <th>Vites</th>
+                    <th>Yıl</th>
+                    <th>Günlük Ücret</th>
+                    <th>Durum</th>
+                    <th>İşlemler</th>
+                  </tr>
+                </thead>
+                <tbody id="aracTableBody">
+                  <tr>
+                    <td colspan="9" class="empty-row">Henüz araç eklenmedi.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
-        </div>
-      </section>
- 
+        </section>
+      </div>
     </div>
-  </div>
- 
-  <script src="js/admin.js"></script>
-</body>
+
+    <script src="js/admin.js"></script>
+  </body>
 </html>
- 

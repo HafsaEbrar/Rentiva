@@ -1,561 +1,516 @@
-/* ===== ACTIVE LINK ===== */
-.active-link {
-  color: white !important;
-  border-bottom: 2px solid #2563eb;
-  padding-bottom: 3px;
-}
-
-/* ===== SAYFA ===== */
-body {
-  background: #f1f5f9;
-}
-
-.araclar-layout {
-  display: flex;
-  gap: 24px;
-  padding: 28px 32px;
-  min-height: calc(100vh - 80px);
-  max-width: 1600px;
-  margin: 0 auto;
-}
-
-/* ===== FİLTRE PANELİ ===== */
-.filtre-panel {
-  width: 270px;
-  min-width: 270px;
-  background: #fff;
-  border-radius: 16px;
-  padding: 22px 20px;
-  height: fit-content;
-  border: 1px solid #e2e8f0;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
-}
-
-.filtre-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 4px;
-}
-
-.filtre-header h3 {
-  font-size: 20px;
-  font-weight: 700;
-  color: #0f172a;
-}
-
-.btn-temizle-link {
-  background: none;
-  border: none;
-  color: #2563eb;
-  font-size: 14px;
-  cursor: pointer;
-  font-weight: 500;
+* {
+  margin: 0;
   padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", sans-serif;
 }
 
-.btn-temizle-link:hover {
-  text-decoration: underline;
+body {
+  background-color: #0a0f1a;
+  color: white;
+  height: 100vh;
+  overflow: hidden;
 }
 
-/* Filtre grupları */
-.filtre-grup {
-  border-top: 1px solid #e2e8f0;
-  padding: 16px 0 4px;
-  margin-top: 4px;
-}
-
-.filtre-grup h4 {
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.06em;
-  color: #64748b;
-  margin-bottom: 10px;
+/* ===== LAYOUT ===== */
+.admin-layout {
   display: flex;
-  align-items: center;
-  gap: 6px;
+  height: 100vh;
 }
 
-.filtre-icon {
-  font-size: 14px;
-}
-
-/* Tarih inputları */
-.tarih-grup {
+/* ===== SIDEBAR ===== */
+.sidebar {
+  width: 200px;
+  min-width: 200px;
+  background-color: #0d1526;
+  border-right: 1px solid rgba(255, 255, 255, 0.07);
   display: flex;
   flex-direction: column;
   gap: 4px;
+  padding: 20px 0;
+  overflow-y: auto;
 }
 
-.tarih-label {
+.sidebar-logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 16px 20px;
+  font-size: 18px;
+  font-weight: 700;
+  color: white;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+  margin-bottom: 8px;
+}
+
+.sidebar-section-label {
   font-size: 10px;
-  font-weight: 600;
-  letter-spacing: 0.05em;
-  color: #94a3b8;
+  color: #4a5a70;
+  padding: 12px 16px 4px;
+  letter-spacing: 0.8px;
 }
 
-.tarih-input {
-  width: 100%;
-  padding: 9px 12px;
-  border: 1px solid #e2e8f0;
-  border-radius: 10px;
-  font-size: 14px;
-  color: #374151;
-  background: #f8fafc;
-  box-sizing: border-box;
-  outline: none;
-  transition: border-color 0.2s;
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
 }
 
-.tarih-input:focus {
-  border-color: #2563eb;
-  background: white;
-}
-
-/* Select dropdown */
-.filtre-select {
-  width: 100%;
-  padding: 10px 12px;
-  border-radius: 10px;
-  border: 1px solid #e2e8f0;
-  background: #f8fafc;
-  font-size: 14px;
-  color: #374151;
-  outline: none;
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 16px;
+  font-size: 13px;
+  color: #8a9ab0;
+  text-decoration: none;
+  border-radius: 6px;
+  margin: 1px 8px;
+  transition: all 0.2s;
   cursor: pointer;
-  transition: border-color 0.2s;
-  appearance: auto;
-  margin-bottom: 10px;
 }
 
-.filtre-select:focus {
-  border-color: #2563eb;
-  background: white;
+.nav-item:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+  color: white;
 }
 
-/* Fiyat aralığı */
-.price-range {
+.nav-item.active {
+  background-color: #1a3a6d;
+  color: white;
+}
+
+.nav-item.disabled {
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+.nav-item.logout {
+  color: #ff6b6b;
+}
+
+.nav-item.logout:hover {
+  background-color: rgba(255, 100, 100, 0.1);
+}
+
+/* ===== MAIN ===== */
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* ===== TOPBAR ===== */
+.topbar {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 10px;
+  align-items: center;
+  padding: 16px 28px;
+  background-color: #0d1526;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+  flex-shrink: 0;
+}
+
+.topbar-left h2 {
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.topbar-left p {
   font-size: 13px;
-  font-weight: 600;
-  color: #374151;
+  color: #8a9ab0;
+  margin-top: 2px;
 }
 
-input[type="range"] {
-  width: 100%;
-  accent-color: #2563eb;
-  margin-bottom: 10px;
-}
-
-/* Yıl aralığı */
-.yil-range {
+.topbar-right {
   display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.search-input {
+  padding: 8px 14px;
+  background-color: #131b2e;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  color: white;
+  font-size: 13px;
+  outline: none;
+  width: 220px;
+}
+
+.search-input::placeholder {
+  color: #4a5a70;
+}
+
+.icon-btn {
+  background: transparent;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+  padding: 6px;
+}
+
+.admin-profile {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: #1a6dff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 16px;
+}
+
+.admin-profile strong {
+  display: block;
+  font-size: 13px;
+}
+
+.online {
+  font-size: 11px;
+  color: #4ade80;
+}
+
+/* ===== SECTIONS ===== */
+.section {
+  flex: 1;
+  overflow-y: auto;
+  padding: 28px;
+}
+
+/* ===== STAT CARDS ===== */
+.stat-cards {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 28px;
+}
+
+.stat-card {
+  border-radius: 12px;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.stat-card.blue {
+  background: linear-gradient(135deg, #1a3a6d, #1a6dff22);
+  border: 1px solid #1a6dff44;
+}
+.stat-card.green {
+  background: linear-gradient(135deg, #0f3320, #22c55e22);
+  border: 1px solid #22c55e44;
+}
+.stat-card.orange {
+  background: linear-gradient(135deg, #3a1a00, #f9731622);
+  border: 1px solid #f9731644;
+}
+.stat-card.purple {
+  background: linear-gradient(135deg, #2a1a4a, #a855f722);
+  border: 1px solid #a855f744;
+}
+
+.stat-icon {
+  font-size: 28px;
+  width: 52px;
+  height: 52px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.stat-value {
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.stat-label {
+  font-size: 13px;
+  color: #8a9ab0;
+  margin-top: 2px;
+}
+
+.dashboard-hint {
+  background-color: #131b2e;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 24px;
+  text-align: center;
+  color: #8a9ab0;
+  font-size: 15px;
+}
+
+/* ===== SECTION CARD ===== */
+.section-card {
+  background-color: #0d1526;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 16px;
+  padding: 28px;
+}
+
+.section-card h3 {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.section-desc {
+  font-size: 13px;
+  color: #8a9ab0;
+  margin-bottom: 24px;
+}
+
+/* ===== FORM TABS ===== */
+.form-tabs {
+  display: flex;
+  gap: 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  margin-bottom: 28px;
+}
+
+.form-tab {
+  padding: 10px 20px;
+  background: transparent;
+  border: none;
+  color: #8a9ab0;
+  font-size: 14px;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: all 0.2s;
+}
+
+.form-tab.active {
+  color: #1a6dff;
+  border-bottom-color: #1a6dff;
+}
+
+/* ===== FORM GRID ===== */
+.form-grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
   gap: 8px;
 }
 
-.yil-range .filtre-select {
-  width: 50%;
+.input-group.full-width {
+  grid-column: 1 / -1;
 }
 
-/* Filtre butonları */
-.btn-filtre-uygula,
-.btn-filtre-temizle {
-  width: 100%;
-  padding: 11px;
-  border-radius: 10px;
+.input-group label {
+  font-size: 13px;
+  color: #cdd6e0;
+}
+
+.input-group input,
+.input-group select,
+.input-group textarea {
+  padding: 10px 14px;
+  background-color: #131b2e;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  color: white;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.input-group input::placeholder,
+.input-group textarea::placeholder {
+  color: #4a5a70;
+}
+
+.input-group input:focus,
+.input-group select:focus,
+.input-group textarea:focus {
+  border-color: #1a6dff;
+}
+
+.input-group select option {
+  background-color: #131b2e;
+}
+
+/* ===== CHECKBOX GRID ===== */
+.checkbox-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.checkbox-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  color: #cdd6e0;
+  cursor: pointer;
+  padding: 12px 16px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  transition: border-color 0.2s;
+}
+
+.checkbox-item:hover {
+  border-color: #1a6dff;
+}
+
+.checkbox-item input {
+  accent-color: #1a6dff;
+  width: 16px;
+  height: 16px;
+}
+
+.coming-soon {
+  color: #4a5a70;
+  font-size: 13px;
+  padding: 20px 0;
+}
+
+/* ===== FORM ACTIONS ===== */
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.btn-temizle {
+  padding: 10px 24px;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #cdd6e0;
+  border-radius: 8px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-temizle:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.btn-kaydet {
+  padding: 10px 24px;
+  background-color: #c8960c;
+  color: white;
+  border: none;
+  border-radius: 8px;
   font-size: 14px;
   font-weight: 600;
   cursor: pointer;
-  margin-top: 10px;
-  transition: 0.2s;
+  transition: background-color 0.2s;
 }
 
-.btn-filtre-uygula {
-  background: #2563eb;
-  color: white;
-  border: none;
+.btn-kaydet:hover {
+  background-color: #a87a08;
 }
 
-.btn-filtre-uygula:hover {
-  background: #1d4ed8;
-}
-
-.btn-filtre-temizle {
-  background: white;
-  border: 1px solid #e2e8f0;
-  color: #374151;
-}
-
-.btn-filtre-temizle:hover {
-  border-color: #2563eb;
-  color: #2563eb;
-}
-
-/* ===== SAĞ TARAF ===== */
-.arac-listesi {
-  flex: 1;
-  min-width: 0;
-}
-
-.liste-header {
+/* ===== ARAÇ LİSTESİ ===== */
+.list-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 20px;
 }
 
-#aracSayisi {
-  font-size: 16px;
-  color: #374151;
-  font-weight: 500;
-}
-
-#aracSayisi strong {
-  font-weight: 700;
-  color: #0f172a;
-}
-
-.siralama {
+.list-actions {
   display: flex;
+  gap: 12px;
   align-items: center;
-  gap: 8px;
 }
 
-.siralama select {
-  padding: 9px 14px;
-  border-radius: 10px;
-  border: 1px solid #e2e8f0;
-  background: white;
-  font-size: 14px;
-  color: #374151;
-  outline: none;
-  cursor: pointer;
+.table-wrapper {
+  overflow-x: auto;
 }
 
-.view-btn {
-  width: 40px;
-  height: 40px;
-  border-radius: 10px;
-  border: 1px solid #e2e8f0;
-  background: white;
-  cursor: pointer;
-  font-size: 16px;
-  transition: 0.2s;
-  color: #64748b;
-}
-
-.view-btn.active {
-  background: #2563eb;
-  color: white;
-  border-color: #2563eb;
-}
-
-/* ===== GRID ===== */
-.arac-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 20px;
-}
-
-/* ===== KART ===== */
-.arac-kart {
-  background: white;
-  border-radius: 16px;
-  overflow: hidden;
-  border: 1px solid #e2e8f0;
-  transition:
-    transform 0.25s,
-    box-shadow 0.25s;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
-  position: relative;
-}
-
-.arac-kart:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.11);
-}
-
-/* Görsel alanı */
-.kart-gorsel {
+.arac-table {
   width: 100%;
-  height: 210px;
-  background: #f1f5f9;
-  position: relative;
-  overflow: hidden;
-}
-
-.kart-gorsel img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
-
-.no-image {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 48px;
-  height: 100%;
-  color: #cbd5e1;
-}
-
-/* Yıl badge */
-.kart-yil-badge {
-  position: absolute;
-  top: 12px;
-  left: 12px;
-  background: #2563eb;
-  color: white;
-  font-size: 12px;
-  font-weight: 700;
-  padding: 4px 10px;
-  border-radius: 6px;
-}
-
-/* Favori butonu */
-.favori-btn {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  width: 34px;
-  height: 34px;
-  border-radius: 50%;
-  border: none;
-  background: rgba(255, 255, 255, 0.92);
-  cursor: pointer;
-  font-size: 16px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-  transition: 0.2s;
-}
-
-.favori-btn:hover {
-  background: white;
-  transform: scale(1.1);
-}
-
-/* Kart içeriği */
-.kart-icerik {
-  padding: 16px 18px 18px;
-}
-
-/* Tip badge */
-.kart-tip-badge {
-  display: inline-block;
-  padding: 3px 12px;
-  border-radius: 20px;
-  font-size: 12px;
-  font-weight: 500;
-  border: 1px solid #bfdbfe;
-  color: #1d4ed8;
-  background: #eff6ff;
-  margin-bottom: 10px;
-}
-
-.kart-baslik {
-  font-size: 22px;
-  font-weight: 700;
-  color: #0f172a;
-  margin-bottom: 6px;
-}
-
-.kart-bilgi {
-  color: #64748b;
+  border-collapse: collapse;
   font-size: 13px;
-  margin-bottom: 12px;
-  display: flex;
-  align-items: center;
-  gap: 6px;
 }
 
-.kart-bilgi .dot {
-  color: #cbd5e1;
-}
-
-/* Detay chip'leri (5 Kişi • Otomatik • Benzin) */
-.kart-detaylar {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-  margin-bottom: 16px;
-}
-
-.detay-chip {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  padding: 4px 10px;
-  border-radius: 20px;
-  font-size: 12px;
-  font-weight: 500;
-  background: #f1f5f9;
-  color: #475569;
-  border: 1px solid #e2e8f0;
-}
-
-/* Alt alan: fiyat + buton */
-.kart-alt {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-top: 1px solid #f1f5f9;
-  padding-top: 14px;
-  margin-top: 4px;
-}
-
-.kart-fiyat {
-  font-size: 26px;
-  font-weight: 800;
-  color: #2563eb;
-  line-height: 1;
-}
-
-.kart-fiyat span {
-  font-size: 13px;
-  color: #94a3b8;
-  font-weight: 400;
-  margin-left: 2px;
-}
-
-.btn-detay {
-  padding: 9px 18px;
-  border-radius: 10px;
-  border: 1px solid #e2e8f0;
-  color: #374151;
-  background: white;
-  text-decoration: none;
+.arac-table th {
+  text-align: left;
+  padding: 12px 14px;
+  color: #4a5a70;
   font-weight: 600;
-  font-size: 14px;
-  transition: 0.2s;
-  white-space: nowrap;
+  text-transform: uppercase;
+  font-size: 11px;
+  letter-spacing: 0.5px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
 }
 
-.btn-detay:hover {
-  background: #2563eb;
-  color: white;
-  border-color: #2563eb;
+.arac-table td {
+  padding: 14px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  color: #cdd6e0;
 }
 
-/* ===== LIST VIEW ===== */
-.arac-grid.list-view {
-  grid-template-columns: 1fr;
+.arac-table tr:hover td {
+  background-color: rgba(255, 255, 255, 0.02);
 }
 
-.arac-grid.list-view .arac-kart {
-  display: flex;
-  flex-direction: row;
-}
-
-.arac-grid.list-view .kart-gorsel {
-  width: 260px;
-  min-width: 260px;
-  height: auto;
-}
-
-.arac-grid.list-view .kart-icerik {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-/* ===== YÜKLENİYOR / BOŞ ===== */
-.yukleniyor {
-  grid-column: 1 / -1;
+.empty-row {
   text-align: center;
-  padding: 60px 20px;
-  color: #94a3b8;
-  font-size: 16px;
+  color: #4a5a70;
+  padding: 40px !important;
 }
 
-/* ===== PAGINATION ===== */
-.pagination {
+.badge {
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.badge.uygun {
+  background: #0f3320;
+  color: #4ade80;
+}
+.badge.rezerve {
+  background: #3a1a00;
+  color: #fb923c;
+}
+.badge.bakimda {
+  background: #1a1a3a;
+  color: #818cf8;
+}
+
+.action-btns {
   display: flex;
-  justify-content: center;
   gap: 8px;
-  margin-top: 40px;
 }
 
-.page-btn {
-  width: 40px;
-  height: 40px;
-  border-radius: 10px;
-  border: 1px solid #e2e8f0;
-  background: white;
+.action-btn {
+  background: transparent;
+  border: none;
+  font-size: 16px;
   cursor: pointer;
-  font-size: 14px;
-  font-weight: 500;
-  color: #374151;
-  transition: 0.2s;
+  padding: 4px;
+  opacity: 0.7;
+  transition: opacity 0.2s;
 }
 
-.page-btn:hover:not(:disabled) {
-  border-color: #2563eb;
-  color: #2563eb;
-}
-
-.page-btn.active {
-  background: #2563eb;
-  color: white;
-  border-color: #2563eb;
-}
-
-.page-btn:disabled {
-  opacity: 0.4;
-  cursor: not-allowed;
-}
-
-/* ===== RESPONSIVE ===== */
-@media (max-width: 1200px) {
-  .arac-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (max-width: 992px) {
-  .araclar-layout {
-    flex-direction: column;
-    padding: 16px;
-  }
-
-  .filtre-panel {
-    width: 100%;
-  }
-}
-
-@media (max-width: 768px) {
-  .liste-header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 12px;
-  }
-
-  .arac-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .arac-grid.list-view .arac-kart {
-    flex-direction: column;
-  }
-
-  .arac-grid.list-view .kart-gorsel {
-    width: 100%;
-    height: 210px;
-  }
-
-  .kart-alt {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 12px;
-  }
-
-  .btn-detay {
-    width: 100%;
-    text-align: center;
-  }
+.action-btn:hover {
+  opacity: 1;
 }
