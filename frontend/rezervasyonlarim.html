@@ -1,106 +1,227 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="tr">
-<head>
-    <meta charset="UTF-8">
-    <title>Rezervasyonlarım</title>
-
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rezervasyonlarım - Rentiva</title>
+    <link rel="stylesheet" href="css/style.css" />
     <style>
+      body {
+        background: #f1f5f9;
+        padding-top: 80px;
+      }
 
-        body{
-            font-family:Arial;
-            background:#0a0a0a;
-            color:white;
-            padding:40px;
+      .rezervasyon-wrapper {
+        max-width: 900px;
+        margin: 40px auto;
+        padding: 0 24px;
+      }
+
+      .rezervasyon-wrapper h1 {
+        font-size: 26px;
+        font-weight: 700;
+        color: #0f172a;
+        margin-bottom: 24px;
+      }
+
+      .kart {
+        background: white;
+        padding: 24px;
+        border-radius: 16px;
+        margin-bottom: 20px;
+        border: 1px solid #e2e8f0;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        display: flex;
+        gap: 24px;
+        align-items: flex-start;
+      }
+
+      .kart img {
+        width: 220px;
+        min-width: 220px;
+        height: 150px;
+        object-fit: cover;
+        border-radius: 12px;
+      }
+
+      .kart-bilgi h2 {
+        font-size: 20px;
+        font-weight: 700;
+        color: #0f172a;
+        margin-bottom: 10px;
+      }
+
+      .kart-bilgi p {
+        font-size: 14px;
+        color: #64748b;
+        margin-bottom: 6px;
+      }
+
+      .kart-bilgi p span {
+        color: #0f172a;
+        font-weight: 600;
+      }
+
+      .kart-fiyat {
+        font-size: 22px;
+        font-weight: 800;
+        color: #2563eb;
+        margin: 12px 0;
+      }
+
+      .btn-iptal {
+        padding: 9px 20px;
+        border-radius: 10px;
+        border: 1px solid #ef4444;
+        color: #ef4444;
+        background: white;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: 0.2s;
+      }
+
+      .btn-iptal:hover {
+        background: #ef4444;
+        color: white;
+      }
+
+      .bos-mesaj {
+        text-align: center;
+        padding: 60px 20px;
+        color: #94a3b8;
+        font-size: 16px;
+      }
+
+      @media (max-width: 600px) {
+        .kart {
+          flex-direction: column;
         }
-
-        .kart{
-            background:#1a1a2e;
-            padding:24px;
-            border-radius:16px;
-            margin-bottom:20px;
+        .kart img {
+          width: 100%;
+          height: 200px;
         }
-
-        img{
-            width:100%;
-            max-width:300px;
-            border-radius:12px;
-            margin-bottom:16px;
-        }
-
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
+    <nav class="navbar scrolled">
+      <div class="navbar-logo">
+        <img src="image/logo.png" alt="logo" />
+        <span>Rentiva</span>
+      </div>
+      <ul class="navbar-links">
+        <li><a href="index.html">Ana Sayfa</a></li>
+        <li><a href="araclar.html">Araçlar</a></li>
+        <li><a href="index.html#hakkimizda">Hakkımızda</a></li>
+        <li><a href="#">Hizmetler</a></li>
+        <li><a href="index.html#iletisim">İletişim</a></li>
+      </ul>
+      <div class="navbar-buttons" id="navbarButtons"></div>
+    </nav>
 
-<h1>Rezervasyonlarım</h1>
+    <div class="rezervasyon-wrapper">
+      <h1>Rezervasyonlarım</h1>
+      <div id="rezervasyonlar"></div>
+    </div>
 
-<div id="rezervasyonlar"></div>
+    <script>
+      // Navbar
+      function navbarGuncelle() {
+        const token = localStorage.getItem("token");
+        const navbarButtons = document.getElementById("navbarButtons");
 
-<script>
-
-async function rezervasyonlariGetir() {
-
-    const userId = 1;
-    const response = await fetch(
-        `http://localhost:8080/api/reservations/customer/${userId}`
-    );
-
-    const data = await response.json();
-
-    const container =
-        document.getElementById("rezervasyonlar");
-
-    container.innerHTML = "";
-
-    data.filter(r => r.status !== "CANCELLED").forEach(r => {
-
-        container.innerHTML += `
-
-            <div class="kart">
-
-                <img src="http://127.0.0.1:5500/${r.vehicle.imageUrl}">
-
-                <h2>${r.vehicle.plateNo}</h2>
-
-                <p>Başlangıç:
-                ${r.startDate}</p>
-
-                <p>Bitiş:
-                ${r.endDate}</p>
-
-                <p>Toplam:
-                ₺${r.totalAmount}</p>
-                <button onclick="rezervasyonIptal(${r.id})">
-
-                    İptal Et </button>
-
-            </div>
-
+        if (token) {
+          navbarButtons.innerHTML = `
+          <a href="rezervasyonlarim.html" class="auth-btn" style="background:transparent; border:1px solid rgba(255,255,255,0.3);">Rezervasyonlarım</a>
+          <button onclick="cikisYap()" class="auth-btn">Çıkış Yap</button>
         `;
-    });
-}
-
-rezervasyonlariGetir();
-async function rezervasyonIptal(id) {
-
-    const response = await fetch(
-        `http://localhost:8080/api/reservations/${id}/cancel`,
-        {
-            method: "PUT"
+        } else {
+          navbarButtons.innerHTML = `
+          <a href="login.html" class="auth-btn">Giriş / Kayıt</a>
+        `;
         }
-    );
+      }
 
-    if(response.ok){
+      function cikisYap() {
+        localStorage.clear();
+        window.location.href = "login.html";
+      }
 
-        alert("Rezervasyon iptal edildi");
+      navbarGuncelle();
 
-        rezervasyonlariGetir();
+      // Rezervasyonlar
+      async function rezervasyonlariGetir() {
+        const userId = localStorage.getItem("userId");
 
-    }else{
+        if (!userId) {
+          document.getElementById("rezervasyonlar").innerHTML =
+            '<div class="bos-mesaj">Rezervasyonları görmek için giriş yapmalısınız.</div>';
+          return;
+        }
 
-        alert("İptal işlemi başarısız");
-    }
-}
-</script>
+        try {
+          const token = localStorage.getItem("token");
+          const response = await fetch(
+            `http://localhost:8080/api/reservations/customer/${userId}`,
+            {
+              headers: token ? { Authorization: "Bearer " + token } : {},
+            },
+          );
 
-</body>
+          const data = await response.json();
+          const container = document.getElementById("rezervasyonlar");
+          container.innerHTML = "";
+
+          const aktifler = data.filter((r) => r.status !== "CANCELLED");
+
+          if (aktifler.length === 0) {
+            container.innerHTML =
+              '<div class="bos-mesaj">Henüz rezervasyonunuz bulunmamaktadır.</div>';
+            return;
+          }
+
+          aktifler.forEach((r) => {
+            container.innerHTML += `
+            <div class="kart">
+              <img src="http://127.0.0.1:5500/${r.vehicle.imageUrl}" alt="${r.vehicle.plateNo}">
+              <div class="kart-bilgi">
+                <h2>${r.vehicle.plateNo}</h2>
+                <p>Başlangıç: <span>${r.startDate}</span></p>
+                <p>Bitiş: <span>${r.endDate}</span></p>
+                <p>Durum: <span>${r.status}</span></p>
+                <div class="kart-fiyat">₺${Number(r.totalAmount).toLocaleString("tr-TR")}</div>
+                <button class="btn-iptal" onclick="rezervasyonIptal(${r.id})">İptal Et</button>
+              </div>
+            </div>
+          `;
+          });
+        } catch (error) {
+          console.error(error);
+          document.getElementById("rezervasyonlar").innerHTML =
+            '<div class="bos-mesaj">Sunucuya bağlanılamadı.</div>';
+        }
+      }
+
+      async function rezervasyonIptal(id) {
+        const token = localStorage.getItem("token");
+        const response = await fetch(
+          `http://localhost:8080/api/reservations/${id}/cancel`,
+          {
+            method: "PUT",
+            headers: token ? { Authorization: "Bearer " + token } : {},
+          },
+        );
+
+        if (response.ok) {
+          alert("Rezervasyon iptal edildi.");
+          rezervasyonlariGetir();
+        } else {
+          alert("İptal işlemi başarısız.");
+        }
+      }
+
+      rezervasyonlariGetir();
+    </script>
+  </body>
 </html>
