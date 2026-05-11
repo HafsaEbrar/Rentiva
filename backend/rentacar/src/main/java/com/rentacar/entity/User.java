@@ -39,5 +39,7 @@ public class User {
 
     private String companyName;
     private String taxNumber;
-    private String address;
+    
+    private String city;
+    private String district;
 }

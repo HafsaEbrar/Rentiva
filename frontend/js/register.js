@@ -133,7 +133,8 @@ async function registerYonetici() {
   const tc = document.getElementById('y_tc').value.trim();
   const sirket = document.getElementById('y_sirket').value.trim();
   const vergino = document.getElementById('y_vergino').value.trim();
-  const adres = document.getElementById('y_adres').value.trim();
+  const city = document.getElementById('y_city').value.trim();
+  const district = document.getElementById('y_district').value.trim();
   const gorev = document.getElementById('y_gorev').value;
 
   if (!adsoyad || !email || !telefon || !sifre || !tc || !sirket || !vergino || !gorev) {
@@ -154,7 +155,8 @@ async function registerYonetici() {
     nationalId: tc,
     companyName: sirket,
     taxNumber: vergino,
-    address: adres
+    city: city,
+    district: district
   };
 
   try {

@@ -13,18 +13,21 @@ import java.util.List;
 public interface ReservationRepository extends JpaRepository<Reservation, Long> {
 
     List<Reservation> findByCustomerId(Long customerId);
+
     List<Reservation> findByVehicleId(Long vehicleId);
 
     @Query("""
         SELECT COUNT(r) > 0 FROM Reservation r
         WHERE r.vehicle.id = :vehicleId
         AND r.status NOT IN ('CANCELLED', 'COMPLETED')
-        AND r.startDate < :endDate
-        AND r.endDate > :startDate
+        AND (
+            :startDate <= r.endDate
+            AND :endDate >= r.startDate
+        )
     """)
     boolean existsConflictingReservation(
-        @Param("vehicleId") Long vehicleId,
-        @Param("startDate") LocalDate startDate,
-        @Param("endDate") LocalDate endDate
+            @Param("vehicleId") Long vehicleId,
+            @Param("startDate") LocalDate startDate,
+            @Param("endDate") LocalDate endDate
     );
 }

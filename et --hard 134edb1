@@ -1,0 +1,37 @@
+[33m134edb1[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mebrar[m[33m)[m frontend stabilize before fixes
+[33mdf88c7f[m rezervasyonlarim conflict fixed
+[33mffdea5c[m[33m ([m[1;31morigin/ebrar[m[33m)[m auth kontrol ve navbar düzenlemeleri
+[33m5313eb9[m auth kontrol ve navbar düzenlemeleri
+[33m8bac492[m auth kontrol ve navbar düzenlemeleri
+[33mfbec920[m navbar auth ve ui düzeltmeleri
+[33mb685f13[m Merge branch 'ebrar' of https://github.com/dilaoztrk/Rent_a_Car into ebrar
+[33ma4598b7[m frontend düzenleme
+[33mb2c499e[m ödeme sistemi eklendi
+[33m8cabe7d[m Rezervasyon iptal sistemi ve admin panel güncellendi
+[33m83a5c08[m Rezervasyon sistemi ve araç detay sayfası güncellendi
+[33mfc4623f[m JWT authentication ve araç filtreleme testi tamamlandı
+[33mbcb628e[m manager panel eklendi
+[33m8cecab6[m güvenlik yapılandırması, cors, hata yönetimi, login düzeltmesi, dialect uyarısı kaldırıldı
+[33m7a331ff[m security config, cors, exception handler, login fix
+[33m4158a34[m Merge branch 'acy' of https://github.com/dilaoztrk/Rent_a_Car into ebrar
+[33m18a0507[m backend: user entity, login, cors config
+[33mfdd5e10[m[33m ([m[1;31morigin/acy[m[33m)[m frontend: register, login düzenlemeleri
+[33m05b5757[m Merge remote-tracking branch 'origin/main' into acy
+[33mb2ec20f[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmain[m[33m)[m özellik: rezervasyon sistemi eklendi, müşteri ve araç entity'leri güncellendi
+[33m8ced6e6[m frontend: tüm sayfalar tamamlandı
+[33m3aa820f[m merge: main ile birleştirildi
+[33mb823960[m[33m ([m[1;31morigin/frontend/ui[m[33m, [m[1;32mfrontend/ui[m[33m)[m frontend: ana sayfa, login, register, admin panel, araçlar sayfası eklendi
+[33m4b23695[m Initial commit
+[33ma1d8c50[m fix: correct service package structure
+[33mb2b2ad9[m[33m ([m[1;31morigin/dila[m[33m, [m[1;32mdila[m[33m)[m frontend: kiralama sistemi düzenlendi, detail çalışır hale geldi
+[33m4b11791[m merge: combined local changes with remote updates
+[33mf2f80f8[m feat: company CRUD endpoints added
+[33m42f2927[m clean backend setup
+[33m5d88267[m backend project added
+[33mbb23c6c[m frontend araç listesi tamamlandı
+[33m7879783[m README.md
+[33m8c036d0[m frontend recovered and UI added
+[33m4ac3ff4[m frontend UI
+[33mc274e7e[m clean backend setup
+[33me0b4b6b[m backend project added
+[33m771847f[m initial setup
