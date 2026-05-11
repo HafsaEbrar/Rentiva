@@ -5,7 +5,7 @@ async function getCarFromBackend() {
   const aracId = params.get("id");
 
   const response = await fetch(
-    `http://localhost:8080/api/vehicles/${aracId}`
+    `http://localhost:8100/api/vehicles/${aracId}`
   );
 
   return await response.json();

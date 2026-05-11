@@ -1,4 +1,4 @@
-  package com.rentacar.service;
+package com.rentacar.service;
 
 import com.rentacar.entity.Reservation;
 import com.rentacar.entity.ReservationStatus;
@@ -30,17 +30,24 @@ public class ReservationService {
 
         Long vehicleId = reservation.getVehicle().getId();
 
-        // Geçmiş tarih kontrolü
+        String vehicleStatus = reservation.getVehicle().getStatus();
+
+        if (vehicleStatus.equals("MAINTENANCE")) {
+            throw new RuntimeException("Araç bakımda olduğu için rezerve edilemez.");
+        }
+
+        if (vehicleStatus.equals("BROKEN")) {
+            throw new RuntimeException("Araç arızalı olduğu için rezerve edilemez.");
+        }
+
         if (reservation.getStartDate().isBefore(LocalDate.now())) {
             throw new RuntimeException("Geçmiş tarihe rezervasyon yapılamaz.");
         }
 
-        // Bitiş tarihi kontrolü
         if (reservation.getEndDate().isBefore(reservation.getStartDate())) {
             throw new RuntimeException("Bitiş tarihi başlangıç tarihinden önce olamaz.");
         }
 
-        // Tarih çakışması kontrolü
         boolean hasConflict = reservationRepository.existsConflictingReservation(
                 vehicleId,
                 reservation.getStartDate(),
@@ -51,7 +58,6 @@ public class ReservationService {
             throw new RuntimeException("Bu araç seçilen tarihlerde müsait değil.");
         }
 
-        // Bakım kontrolü
         boolean inMaintenance = maintenanceRepository.existsActiveMaintenanceForVehicle(
                 vehicleId,
                 reservation.getStartDate(),
@@ -83,7 +89,6 @@ public class ReservationService {
         if (!reservationRepository.existsById(id)) {
             throw new RuntimeException("Rezervasyon bulunamadı");
         }
-
         reservationRepository.deleteById(id);
     }
 }

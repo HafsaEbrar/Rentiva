@@ -103,7 +103,7 @@ async function registerKullanici() {
   };
 
   try {
-    const response = await fetch('http://localhost:8080/api/users/register', {
+    const response = await fetch('http://localhost:8100/api/users/register', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(body)
@@ -160,7 +160,7 @@ async function registerYonetici() {
   };
 
   try {
-    const response = await fetch('http://localhost:8080/api/users/register-admin', {
+    const response = await fetch('http://localhost:8100/api/users/register-admin', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(body)

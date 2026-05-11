@@ -514,3 +514,75 @@ body {
 .action-btn:hover {
   opacity: 1;
 }
+.status-badge {
+
+  padding: 6px 10px;
+  border-radius: 8px;
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
+  display: inline-block;
+  min-width: 100px;
+  text-align: center;
+}
+
+.status-badge.AVAILABLE {
+  background: #22c55e;
+}
+
+.status-badge.MAINTENANCE {
+  background: #facc15;
+  color: black;
+}
+
+.status-badge.BROKEN {
+  background: #ef4444;
+}
+.status-badge {
+
+  padding: 6px 10px;
+  border-radius: 8px;
+  background: #1e293b;
+  color: white;
+  font-size: 12px;
+  text-align: center;
+}
+.status-actions {
+
+  display: flex;
+  gap: 6px;
+  margin-top: 8px;
+  flex-wrap: wrap;
+}
+
+.status-btn {
+
+  border: none;
+  padding: 6px 10px;
+  border-radius: 8px;
+
+  font-size: 12px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: 0.2s ease;
+
+  color: white;
+}
+
+.status-btn:hover {
+  transform: translateY(-1px);
+}
+
+.status-btn.available {
+  background: #22c55e;
+}
+
+.status-btn.maintenance {
+  background: #f59e0b;
+}
+
+.status-btn.broken {
+  background: #ef4444;
+}

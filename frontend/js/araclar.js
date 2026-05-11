@@ -11,7 +11,7 @@ window.onload = () => {
 async function araclariGetir() {
   try {
     const token = localStorage.getItem("token");
-    const response = await fetch("http://localhost:8080/api/vehicles", {
+    const response = await fetch("http://localhost:8100/api/vehicles", {
       headers: token ? { Authorization: "Bearer " + token } : {},
     });
     const data = await response.json();
@@ -54,62 +54,136 @@ function araclariGoster() {
 
 // ===== KART HTML =====
 function kartHTML(arac) {
+
   const gorsel = arac.imageUrl
-    ? `<img src="http://127.0.0.1:5500/${arac.imageUrl}" alt="${arac.plateNo || "Araç"}">`
+    ? `<img src="http://127.0.0.1:5500/${arac.imageUrl}"
+            alt="${arac.plateNo || "Araç"}">`
     : `<div class="no-image">🚗</div>`;
 
   const yilBadge = arac.year
     ? `<div class="kart-yil-badge">${arac.year}</div>`
     : "";
 
-  const tipBadge = arac.vehicleType
-    ? `<div class="kart-tip-badge">${arac.vehicleType}</div>`
-    : "";
+  // ===== MODEL BİLGİLERİ =====
 
-  const bilgiParcalar = [];
-  if (arac.year) bilgiParcalar.push(arac.year);
-  if (arac.transmissionType) bilgiParcalar.push(arac.transmissionType);
-  if (arac.fuelType) bilgiParcalar.push(arac.fuelType);
-  const bilgi = bilgiParcalar.join(' <span class="dot">•</span> ');
+  const marka =
+    arac.model?.brand || "";
+
+  const model =
+    arac.model?.modelName || "";
+
+  const yakit =
+    arac.model?.fuelType || "";
+
+  const vites =
+    arac.model?.transmissionType || "";
+
+  const kategori =
+    arac.model?.category?.name || "";
+
+  // ===== CHIPS =====
 
   const chiplar = [];
-  if (arac.capacity)
-    chiplar.push(`<span class="detay-chip">👥 ${arac.capacity} Kişi</span>`);
-  if (arac.transmissionType)
-    chiplar.push(`<span class="detay-chip">⚙️ ${arac.transmissionType}</span>`);
-  if (arac.fuelType)
-    chiplar.push(`<span class="detay-chip">⛽ ${arac.fuelType}</span>`);
-  if (arac.hasAirConditioning !== undefined) {
-    chiplar.push(
-      `<span class="detay-chip">❄️ ${arac.hasAirConditioning ? "Klima" : "Klimasız"}</span>`,
-    );
+
+  if (arac.hasAirConditioning) {
+    chiplar.push(`
+      <span class="detay-chip">
+        ❄️ Klima
+      </span>
+    `);
   }
 
+  if (kategori) {
+    chiplar.push(`
+      <span class="detay-chip">
+        🚘 ${kategori}
+      </span>
+    `);
+  }
+
+  if (yakit) {
+    chiplar.push(`
+      <span class="detay-chip">
+        ⛽ ${yakit}
+      </span>
+    `);
+  }
+
+  if (vites) {
+    chiplar.push(`
+      <span class="detay-chip">
+        ⚙️ ${vites}
+      </span>
+    `);
+  }
+
+  // ===== FİYAT =====
+
   const fiyat = arac.dailyPrice
-    ? `₺${Number(arac.dailyPrice).toLocaleString("tr-TR")}`
+    ? `₺${Number(arac.dailyPrice)
+        .toLocaleString("tr-TR")}`
     : "-";
+
+  // ===== HTML =====
 
   return `
     <div class="arac-kart">
+
       <div class="kart-gorsel">
+
         ${gorsel}
+
         ${yilBadge}
-        <button class="favori-btn" title="Favorilere ekle">🤍</button>
+
+        <button class="favori-btn"
+                title="Favorilere ekle">
+
+          🤍
+
+        </button>
+
       </div>
+
       <div class="kart-icerik">
-        ${tipBadge}
-        <div class="kart-baslik">${arac.brand ? arac.brand + " " : ""}${arac.model || arac.plateNo || "-"}</div>
-        <div class="kart-bilgi">${bilgi}</div>
+
+        <div class="kart-baslik">
+
+          ${marka} ${model}
+
+        </div>
+
+        <div class="kart-plaka">
+
+          ${arac.plateNo || "-"}
+
+        </div>
+
         <div class="kart-detaylar">
+
           ${chiplar.join("")}
+
         </div>
+
         <div class="kart-alt">
+
           <div class="kart-fiyat">
-            ${fiyat}<span> /gün</span>
+
+            ${fiyat}
+            <span>/gün</span>
+
           </div>
-          <a href="detay.html?id=${arac.id}" class="btn-detay">İncele &rsaquo;</a>
+
+          <a href="detay.html?id=${arac.id}"
+             class="btn-detay">
+
+            İncele &rsaquo;
+
+          </a>
+
         </div>
+
       </div>
+
     </div>
   `;
 }
@@ -134,14 +208,11 @@ function filtrele() {
     if (minYil && arac.year < parseInt(minYil)) return false;
     if (maxYil && arac.year > parseInt(maxYil)) return false;
 
-    // Marka filtresi
-    if (seciliMarka && arac.brand !== seciliMarka) return false;
-
-    // Vites filtresi
-    if (seciliVites && arac.transmissionType !== seciliVites) return false;
-
-    // Yakıt filtresi
-    if (seciliYakit && arac.fuelType !== seciliYakit) return false;
+   // ✅ DOĞRU - nested model üzerinden erişim
+    if (seciliMarka && arac.model?.brand !== seciliMarka) return false;
+    if (seciliVites && arac.model?.transmissionType !== seciliVites) return false;
+    if (seciliYakit && arac.model?.fuelType !== seciliYakit) return false;
+    if (seciliTip && arac.model?.category?.name !== seciliTip) return false;
 
     // Araç tipi filtresi
     if (seciliTip && arac.vehicleType !== seciliTip) return false;

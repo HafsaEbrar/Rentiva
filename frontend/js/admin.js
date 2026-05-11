@@ -1,3 +1,13 @@
+// ADMIN AUTH KONTROLÜ
+
+const role = localStorage.getItem('role');
+
+if (role !== 'ADMIN') {
+  alert('Bu sayfaya erişim yetkiniz yok.');
+  window.location.href = 'login.html';
+}
+
+
 // ===== SECTION YÖNETİMİ =====
 function showSection(name) {
 
@@ -78,7 +88,7 @@ function temizleForm() {
       el.value = '';
   });
 
-  document.getElementById('durum').value = 'uygun';
+  document.getElementById('durum').value = 'AVAILABLE';
 }
 
 // ===== ARAÇ EKLE =====
@@ -130,7 +140,7 @@ async function aracEkle() {
 
     const response =
       await fetch(
-        'http://localhost:8080/api/vehicles',
+        'http://localhost:8100/api/vehicles',
         {
           method: 'POST',
 
@@ -180,7 +190,7 @@ async function araclariYukle() {
 
     const response =
       await fetch(
-        'http://localhost:8080/api/vehicles',
+        'http://localhost:8100/api/vehicles',
         {
           headers: {
             'Authorization': `Bearer ${token}`
@@ -202,7 +212,42 @@ async function araclariYukle() {
 
         <td>${arac.year || '-'}</td>
 
-        <td>${arac.status || '-'}</td>
+        <td>
+
+  <div style="display:flex; flex-direction:column; gap:8px;">
+
+    <span class="status-badge">
+      ${arac.status || '-'}
+    </span>
+
+    <div class="status-actions">
+
+      <button
+  class="status-btn available"
+  onclick="durumGuncelle(${arac.id}, 'AVAILABLE')">
+        Aktif
+
+      </button>
+
+      <button
+  class="status-btn maintenance"
+  onclick="durumGuncelle(${arac.id}, 'MAINTENANCE')">
+        Bakım
+
+      </button>
+
+      <button
+  class="status-btn broken"
+  onclick="durumGuncelle(${arac.id}, 'BROKEN')">
+        Arızalı
+
+      </button>
+
+    </div>
+
+  </div>
+
+</td>
 
         <td>
           ₺${Number(arac.dailyPrice)
@@ -275,7 +320,7 @@ async function aracSil(id) {
 
     const response =
       await fetch(
-        `http://localhost:8080/api/vehicles/${id}`,
+        `http://localhost:8100/api/vehicles/${id}`,
         {
           method: 'DELETE',
 
@@ -314,7 +359,7 @@ async function aracDuzenle(id) {
 
     const response =
       await fetch(
-        `http://localhost:8080/api/vehicles/${id}`,
+        `http://localhost:8100/api/vehicles/${id}`,
         {
           headers: {
             'Authorization': `Bearer ${token}`
@@ -330,7 +375,7 @@ async function aracDuzenle(id) {
 
     const updateResponse =
       await fetch(
-        `http://localhost:8080/api/vehicles/${id}`,
+        `http://localhost:8100/api/vehicles/${id}`,
         {
           method: 'PUT',
 
@@ -373,4 +418,60 @@ function araclariFiltrele(query) {
           ? ''
           : 'none';
   });
+}
+// ===== DURUM GÜNCELLE =====
+async function durumGuncelle(id, status) {
+
+  const token =
+    localStorage.getItem('token');
+
+  try {
+
+    const response =
+      await fetch(
+        `http://localhost:8100/api/vehicles/${id}`,
+        {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        }
+      );
+
+    const arac =
+      await response.json();
+
+    arac.status = status;
+
+    const updateResponse =
+      await fetch(
+        `http://localhost:8100/api/vehicles/${id}`,
+        {
+          method: 'PUT',
+
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          },
+
+          body: JSON.stringify(arac)
+        }
+      );
+
+    if (updateResponse.ok) {
+
+      alert('Araç durumu güncellendi!');
+
+      araclariYukle();
+
+    } else {
+
+      alert('Durum güncellenemedi.');
+    }
+
+  } catch (error) {
+
+    console.error(error);
+
+    alert('Sunucu hatası.');
+  }
 }

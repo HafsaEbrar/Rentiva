@@ -132,136 +132,71 @@
 
 <script>
 
-async function rezervasyonlariGetir(){
+async function rezervasyonlariGetir() {
+  const customerId = localStorage.getItem('customerId');
 
-  const userId = 1;
+  if (!customerId) {
+    document.getElementById('rezervasyonlar').innerHTML = '<p>Oturum bulunamadı. Lütfen giriş yapın.</p>';
+    return;
+  }
 
   const response = await fetch(
-    `http://localhost:8080/api/reservations/customer/${userId}`
+    `http://localhost:8100/api/reservations/customer/${customerId}`
   );
 
   const data = await response.json();
 
-  const container =
-    document.getElementById(
-      "rezervasyonlar"
-    );
-
+  const container = document.getElementById("rezervasyonlar");
   container.innerHTML = "";
 
-  const aktifler =
-    data.filter(
-      r => r.status !== "CANCELLED"
-    );
+  const aktifler = data.filter(r => r.status !== "CANCELLED");
 
-  if(aktifler.length === 0){
-
-    container.innerHTML =
-      "<p>Henüz rezervasyon yok.</p>";
-
+  if (aktifler.length === 0) {
+    container.innerHTML = "<p>Henüz rezervasyon yok.</p>";
     return;
   }
 
   aktifler.forEach(r => {
-
     container.innerHTML += `
-
       <div class="kart">
-
-        <img
-        src="http://127.0.0.1:5500/${r.vehicle.imageUrl}">
-
+        <img src="http://127.0.0.1:5500/${r.vehicle.imageUrl}">
         <div class="bilgi">
-
-          <h2>
-            ${r.vehicle.plateNo}
-          </h2>
-
-          <p>
-            Başlangıç:
-            ${r.startDate}
-          </p>
-
-          <p>
-            Bitiş:
-            ${r.endDate}
-          </p>
-
-          <p>
-            Durum:
-            ${r.status}
-          </p>
-
-          <div class="fiyat">
-
-            ₺${r.totalAmount}
-
-          </div>
-
+          <h2>${r.vehicle.plateNo}</h2>
+          <p>Başlangıç: ${r.startDate}</p>
+          <p>Bitiş: ${r.endDate}</p>
+          <p>Durum: ${r.status}</p>
+          <div class="fiyat">₺${r.totalAmount}</div>
           <div class="btnlar">
-
-            <button
-            class="iptal"
-            onclick="rezervasyonIptal(${r.id})">
-
-              İptal Et
-
-            </button>
-
-            <button
-            class="fatura"
-            onclick="faturayaGit(${r.id})">
-
-              Faturayı Gör
-
-            </button>
-
+            <button class="iptal" onclick="rezervasyonIptal(${r.id})">İptal Et</button>
+            <button class="fatura" onclick="faturayaGit(${r.id})">Faturayı Gör</button>
           </div>
-
         </div>
-
       </div>
-
     `;
   });
 }
 
-async function rezervasyonIptal(id){
-
+async function rezervasyonIptal(id) {
   const response = await fetch(
-    `http://localhost:8080/api/reservations/${id}/cancel`,
-    {
-      method:"PUT"
-    }
+    `http://localhost:8100/api/reservations/${id}/cancel`,
+    { method: "PUT" }
   );
 
-  if(response.ok){
-
+  if (response.ok) {
     alert("Rezervasyon iptal edildi");
-
     rezervasyonlariGetir();
-
-  }else{
-
+  } else {
     alert("İşlem başarısız");
   }
 }
 
-function faturayaGit(id){
-
-  localStorage.setItem(
-    "invoiceId",
-    1
-  );
-
-  window.location.href =
-    "fatura.html";
+function faturayaGit(id) {
+  localStorage.setItem("invoiceId", 1);
+  window.location.href = "fatura.html";
 }
 
-function anasayfa(){
-
-  window.location.href =
-    "index.html";
+function anasayfa() {
+  window.location.href = "index.html";
 }
 
 rezervasyonlariGetir();

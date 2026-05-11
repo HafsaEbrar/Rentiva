@@ -13,19 +13,22 @@ import java.util.List;
 public interface VehicleRepository extends JpaRepository<Vehicle, Long> {
 
     @Query("""
-        SELECT v FROM Vehicle v
-        WHERE v.id NOT IN (
-            SELECT r.vehicle.id FROM Reservation r
-            WHERE r.status NOT IN ('CANCELLED', 'COMPLETED')
-            AND r.startDate < :endDate
-            AND r.endDate > :startDate
-        )
-        AND v.id NOT IN (
-            SELECT m.vehicle.id FROM Maintenance m
-            WHERE m.startDate < :endDate
-            AND m.endDate > :startDate
-        )
-    """)
+    SELECT v FROM Vehicle v
+    WHERE v.status NOT IN ('MAINTENANCE', 'BROKEN')
+
+    AND v.id NOT IN (
+        SELECT r.vehicle.id FROM Reservation r
+        WHERE r.status NOT IN ('CANCELLED', 'COMPLETED')
+        AND r.startDate < :endDate
+        AND r.endDate > :startDate
+    )
+
+    AND v.id NOT IN (
+        SELECT m.vehicle.id FROM Maintenance m
+        WHERE m.startDate < :endDate
+        AND m.endDate > :startDate
+    )
+""")
     List<Vehicle> findAvailableVehicles(
         @Param("startDate") LocalDate startDate,
         @Param("endDate") LocalDate endDate

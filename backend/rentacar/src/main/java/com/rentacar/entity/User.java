@@ -42,4 +42,7 @@ public class User {
     
     private String city;
     private String district;
+    private String neighborhood;
+    private String street;
+    private String buildingNo;
 }

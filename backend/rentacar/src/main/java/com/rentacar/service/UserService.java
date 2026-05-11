@@ -1,6 +1,8 @@
 package com.rentacar.service;
 
+import com.rentacar.entity.Customer;
 import com.rentacar.entity.User;
+import com.rentacar.repository.CustomerRepository;
 import com.rentacar.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -14,34 +16,30 @@ import java.util.List;
 public class UserService {
 
     private final UserRepository userRepository;
+    private final CustomerRepository customerRepository; // ← EKLE
 
     private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
-    // 🔹 TÜM KULLANICILAR
     public List<User> getAllUsers() {
         return userRepository.findAll();
     }
 
-    // 🔹 ID İLE KULLANICI
     public User getUserById(Long id) {
         return userRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Kullanıcı bulunamadı"));
     }
 
-    // 🔹 SİL
     public void deleteUser(Long id) {
         userRepository.deleteById(id);
     }
 
-    // ✅ USER REGISTER
+    // ✅ USER REGISTER — customer kaydı otomatik oluşuyor
     public User register(User user) {
 
-        // email kontrol
         if (userRepository.findByEmail(user.getEmail()).isPresent()) {
             throw new RuntimeException("Bu email zaten kayıtlı");
         }
 
-        // TC kontrol
         if (user.getNationalId() == null || user.getNationalId().length() != 11) {
             throw new RuntimeException("TC Kimlik 11 haneli olmalı");
         }
@@ -49,11 +47,18 @@ public class UserService {
         user.setRole("USER");
         user.setIsActive(true);
         user.setRegistrationDate(LocalDate.now());
-
-        // 🔐 ŞİFRE HASH
         user.setPassword(passwordEncoder.encode(user.getPassword()));
 
-        return userRepository.save(user);
+        User savedUser = userRepository.save(user);
+
+        // ← EKLE: customer kaydı otomatik oluştur
+        Customer customer = new Customer();
+        customer.setUser(savedUser);
+        customer.setDriverLicenseNo("");
+        customer.setDriverLicenseImage("");
+        customerRepository.save(customer);
+
+        return savedUser;
     }
 
     // ✅ ADMIN REGISTER
@@ -66,7 +71,6 @@ public class UserService {
         user.setRole("ADMIN");
         user.setIsActive(true);
         user.setRegistrationDate(LocalDate.now());
-
         user.setPassword(passwordEncoder.encode(user.getPassword()));
 
         return userRepository.save(user);
@@ -82,10 +86,7 @@ public class UserService {
             throw new RuntimeException("Şifre yanlış");
         }
 
-        // 🔐 ŞİFREYİ GİZLE
         user.setPassword(null);
-
         return user;
     }
 }
-

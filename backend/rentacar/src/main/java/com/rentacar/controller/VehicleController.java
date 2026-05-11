@@ -1,5 +1,5 @@
 package com.rentacar.controller;
-
+import com.rentacar.entity.VehicleStatus;
 import com.rentacar.entity.Vehicle;
 import com.rentacar.service.VehicleService;
 import lombok.RequiredArgsConstructor;
@@ -49,4 +49,16 @@ public class VehicleController {
     public void deleteVehicle(@PathVariable Long id) {
         vehicleService.deleteVehicle(id);
     }
+
+    @PutMapping("/{id}/status")
+public Vehicle updateVehicleStatus(
+        @PathVariable Long id,
+        @RequestParam VehicleStatus status) {
+
+    Vehicle vehicle = vehicleService.getVehicleById(id);
+
+    vehicle.setStatus(status);
+
+    return vehicleService.saveVehicle(vehicle);
+}
 }

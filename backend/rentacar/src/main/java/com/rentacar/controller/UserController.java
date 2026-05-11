@@ -1,6 +1,8 @@
 package com.rentacar.controller;
 
+import com.rentacar.entity.Customer;
 import com.rentacar.entity.User;
+import com.rentacar.repository.CustomerRepository;
 import com.rentacar.security.JwtUtil;
 import com.rentacar.service.UserService;
 
@@ -8,8 +10,10 @@ import lombok.RequiredArgsConstructor;
 
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/users")
@@ -19,6 +23,7 @@ public class UserController {
 
     private final UserService userService;
     private final JwtUtil jwtUtil;
+    private final CustomerRepository customerRepository; // ← EKLE
 
     @GetMapping
     public List<User> getAllUsers() {
@@ -61,9 +66,19 @@ public class UserController {
     public Map<String, Object> login(@RequestBody Map<String, String> body) {
         User user = userService.login(body.get("email"), body.get("password"));
         String token = jwtUtil.generateToken(user.getEmail(), user.getRole());
-        return Map.of(
-            "token", token,
-            "user", user
-        );
+
+        // Customer ID'yi bul
+        Long customerId = null;
+        Optional<Customer> customer = customerRepository.findByUserId(user.getId());
+        if (customer.isPresent()) {
+            customerId = customer.get().getId();
+        }
+
+        // Map.of immutable olduğu için HashMap kullan
+        Map<String, Object> response = new HashMap<>();
+        response.put("token", token);
+        response.put("user", user);
+        response.put("customerId", customerId); // ← EKLE
+        return response;
     }
 }

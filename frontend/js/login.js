@@ -12,10 +12,6 @@ function togglePassword() {
 }
 
 async function handleLogin() {
-  if (activeTab === 'yonetici') {
-    window.location.href = 'admin.html';
-    return;
-  }
 
   const email = document.getElementById('email').value.trim();
   const password = document.getElementById('password').value.trim();
@@ -26,19 +22,34 @@ async function handleLogin() {
   }
 
   try {
-    const response = await fetch('http://localhost:8080/api/users/login', {
+
+    const response = await fetch('http://localhost:8100/api/users/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, password })
     });
 
     const data = await response.json();
+    console.log(data);
 
     if (response.ok) {
+
+      if (activeTab === 'yonetici' && data.user.role !== 'ADMIN') {
+        alert('Bu hesap yönetici hesabı değildir.');
+        return;
+      }
+
       localStorage.setItem('token', data.token);
       localStorage.setItem('role', data.user.role);
       localStorage.setItem('userId', data.user.id);
-      window.location.href = 'index.html';
+      localStorage.setItem('customerId', data.customerId); // ← customerId eklendi
+
+      if (data.user.role === 'ADMIN') {
+        window.location.href = 'admin.html';
+      } else {
+        window.location.href = 'index.html';
+      }
+
     } else {
       alert(data.message || 'Giriş başarısız.');
     }

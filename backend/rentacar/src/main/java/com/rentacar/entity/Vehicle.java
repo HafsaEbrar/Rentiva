@@ -1,5 +1,4 @@
 package com.rentacar.entity;
-
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -17,7 +16,9 @@ public class Vehicle {
 
     private Integer year;
     private Double dailyPrice;
-    private String status;
+
+    private String status = "AVAILABLE";
+
     private String description;
     private String imageUrl;
 
@@ -29,11 +30,11 @@ public class Vehicle {
     private Boolean hasNavigation;
     private Integer airbagCount;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "model_id")
     private VehicleModel model;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "company_id")
     private Company company;
 }
