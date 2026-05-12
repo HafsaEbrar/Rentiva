@@ -3,6 +3,7 @@ package com.rentacar.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 import java.time.LocalDate;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Data
 @Entity
@@ -16,14 +17,27 @@ public class User {
     @Column(nullable = false)
     private String fullName;
 
-    @Column(unique = true, nullable = false)
+    @Column(unique = true, nullable = false, length = 11)
     private String nationalId;
 
     @Column(unique = true, nullable = false)
     private String email;
 
     private String phone;
+
+    @JsonIgnore
+    @Column(nullable = false)
     private String password;
+
     private LocalDate registrationDate;
     private Boolean isActive;
+
+    private String role;
+
+    private String driverLicenseNumber;
+    private String licenseImage;
+
+   
+
+    private LocalDate birthDate; // ← EKLE
 }

@@ -1,5 +1,5 @@
 package com.rentacar.entity;
-
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Data;
 import java.time.LocalDate;
@@ -12,6 +12,10 @@ public class Invoice {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @JsonIgnoreProperties({
+    "reservation"
+})
 
     @OneToOne
     @JoinColumn(name = "payment_id")

@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="tr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+  <title>Rezervasyonlarım</title>
+
+  <link rel="stylesheet" href="css/style.css">
+
+  <style>
+
+    body{
+      background:#0a0a0a;
+      color:white;
+      font-family:Arial;
+      padding-top:90px;
+    }
+
+    .container{
+      max-width:1000px;
+      margin:auto;
+      padding:30px;
+    }
+
+    .ust{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      margin-bottom:30px;
+    }
+
+    .kart{
+      background:#1a1a2e;
+      border-radius:16px;
+      padding:24px;
+      margin-bottom:24px;
+      display:flex;
+      gap:24px;
+      align-items:flex-start;
+    }
+
+    .kart img{
+      width:260px;
+      border-radius:12px;
+    }
+
+    .bilgi{
+      flex:1;
+    }
+
+    .bilgi h2{
+      margin-bottom:16px;
+      color:#4e8cff;
+    }
+
+    .bilgi p{
+      margin-bottom:10px;
+      color:#ddd;
+    }
+
+    .fiyat{
+      font-size:26px;
+      font-weight:bold;
+      margin-top:14px;
+      color:white;
+    }
+
+    .btnlar{
+      margin-top:20px;
+    }
+
+    button{
+      padding:12px 18px;
+      border:none;
+      border-radius:10px;
+      cursor:pointer;
+      margin-right:12px;
+      font-weight:bold;
+    }
+
+    .iptal{
+      background:#ff4d4d;
+      color:white;
+    }
+
+    .fatura{
+      background:#4e8cff;
+      color:white;
+    }
+
+    .anasayfa{
+      background:white;
+      color:black;
+    }
+
+  </style>
+
+</head>
+
+<body>
+
+<nav class="navbar scrolled">
+
+  <div class="navbar-logo">
+    <img src="image/logo.png">
+    <span>Rentiva</span>
+  </div>
+
+</nav>
+
+<div class="container">
+
+  <div class="ust">
+
+    <h1>Rezervasyonlarım</h1>
+
+    <button class="anasayfa"
+            onclick="anasayfa()">
+
+      Ana Sayfaya Dön
+
+    </button>
+
+  </div>
+
+  <div id="rezervasyonlar"></div>
+
+</div>
+
+<script>
+
+async function rezervasyonlariGetir() {
+  const customerId = localStorage.getItem('customerId');
+
+  if (!customerId) {
+    document.getElementById('rezervasyonlar').innerHTML = '<p>Oturum bulunamadı. Lütfen giriş yapın.</p>';
+    return;
+  }
+
+  const response = await fetch(
+    `http://localhost:8100/api/reservations/customer/${customerId}`
+  );
+
+  const data = await response.json();
+
+  const container = document.getElementById("rezervasyonlar");
+  container.innerHTML = "";
+
+  const aktifler = data.filter(r => r.status !== "CANCELLED");
+
+  if (aktifler.length === 0) {
+    container.innerHTML = "<p>Henüz rezervasyon yok.</p>";
+    return;
+  }
+
+  aktifler.forEach(r => {
+    container.innerHTML += `
+      <div class="kart">
+        <img src="http://127.0.0.1:5500/${r.vehicle.imageUrl}">
+        <div class="bilgi">
+          <h2>${r.vehicle.plateNo}</h2>
+          <p>Başlangıç: ${r.startDate}</p>
+          <p>Bitiş: ${r.endDate}</p>
+          <p>Durum: ${r.status}</p>
+          <div class="fiyat">₺${r.totalAmount}</div>
+          <div class="btnlar">
+            <button class="iptal" onclick="rezervasyonIptal(${r.id})">İptal Et</button>
+            <button class="fatura" onclick="faturayaGit(${r.id})">Faturayı Gör</button>
+          </div>
+        </div>
+      </div>
+    `;
+  });
+}
+
+async function rezervasyonIptal(id) {
+  const response = await fetch(
+    `http://localhost:8100/api/reservations/${id}/cancel`,
+    { method: "PUT" }
+  );
+
+  if (response.ok) {
+    alert("Rezervasyon iptal edildi");
+    rezervasyonlariGetir();
+  } else {
+    alert("İşlem başarısız");
+  }
+}
+
+function faturayaGit(id) {
+  localStorage.setItem("invoiceId", 1);
+  window.location.href = "fatura.html";
+}
+
+function anasayfa() {
+  window.location.href = "index.html";
+}
+
+rezervasyonlariGetir();
+
+</script>
+
+</body>
+</html>

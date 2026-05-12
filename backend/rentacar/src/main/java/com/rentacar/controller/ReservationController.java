@@ -26,20 +26,27 @@ public class ReservationController {
         return reservationService.getReservationById(id);
     }
 
-    // 🔥 CREATE
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Reservation createReservation(@RequestBody Reservation reservation) {
         return reservationService.saveReservation(reservation);
     }
 
-    // 🔥 DELETE
+    @PutMapping("/{id}/cancel")
+    public Reservation cancelReservation(@PathVariable Long id) {
+        return reservationService.cancelReservation(id);
+    }
+
+    @PutMapping("/{id}/complete")
+    public Reservation completeReservation(@PathVariable Long id) {
+        return reservationService.completeReservation(id);
+    }
+
     @DeleteMapping("/{id}")
     public void deleteReservation(@PathVariable Long id) {
         reservationService.deleteReservation(id);
     }
 
-    // 🔥 CUSTOMER'A GÖRE
     @GetMapping("/customer/{customerId}")
     public List<Reservation> getByCustomer(@PathVariable Long customerId) {
         return reservationService.getAllReservations()

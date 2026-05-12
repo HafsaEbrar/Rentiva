@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RentCar - Kayıt Ol</title>
+  <link rel="stylesheet" href="css/register.css">
+</head>
+<body>
+ 
+  <!-- ÜSTTE SEÇIM EKRANI -->
+   
+  <div class="register-page" id="selectionScreen">
+    <div class="register-bg">
+      <div class="register-bg-overlay"></div>
+    </div>
+ 
+ <div class="register-top-bar">
+ <a href="index.html" class="logo">
+  <img src="image/logo.png" alt="logo" style="width:36px; height:36px; object-fit:contain;">
+  <span>Rentiva</span>
+</a>
+  
+  <div class="top-bar-right">
+    <span>Zaten hesabın var mı?</span>
+    <a href="login.html">Giriş Yap</a>
+  </div>
+</div>
+
+    <div class="selection-content">
+      <h1>Kayıt Ol</h1>
+      <p>Hesap türünü seçerek kayıt işlemine başlayabilirsin.</p>
+ 
+      <div class="selection-cards">
+        <div class="selection-card active" onclick="selectType('kullanici')">
+          <div class="card-icon">👤</div>
+          <h3>Kullanıcı Kaydı</h3>
+          <p>Araç kiralamak için müşteri hesabı oluşturun.</p>
+          <button class="btn-select active" id="btnKullanici">Kullanıcı Kaydı</button>
+        </div>
+ 
+        <div class="selection-card" onclick="selectType('yonetici')">
+          <div class="card-icon">💼</div>
+          <h3>Yönetici Kaydı</h3>
+          <p>Yönetici hesabı oluşturun ve sistemi yönetin.</p>
+          <button class="btn-select" id="btnYonetici">Yönetici Kaydı</button>
+        </div>
+      </div>
+    </div>
+  </div>
+ 
+  <!-- KULLANICI FORMU -->
+  <div class="form-screen" id="kullaniciForm" style="display:none;">
+    <div class="form-bg">
+      <div class="form-bg-overlay"></div>
+    </div>
+ 
+    <div class="form-container">
+      <button class="btn-back" onclick="goBack()">← Geri Dön</button>
+ 
+      <h2>Kullanıcı Kaydı</h2>
+      <p class="form-subtitle">Lütfen bilgilerinizi eksiksiz doldurun.</p>
+ 
+      <div class="form-body">
+        <h3 class="section-title">Kişisel Bilgiler</h3>
+      <div class="form-grid">
+  <div class="input-group">
+    <label>Ad Soyad</label>
+    <input type="text" id="k_adsoyad" placeholder="Adınızı ve soyadınızı giriniz">
+  </div>
+  <div class="input-group">
+    <label>TC Kimlik No</label>
+    <input type="text" id="k_tc" placeholder="TC kimlik numaranızı giriniz" maxlength="11">
+  </div>
+  <div class="input-group">
+    <label>Telefon</label>
+    <input type="tel" id="k_telefon" placeholder="Telefon numaranızı giriniz">
+  </div>
+  <div class="input-group">
+    <label>E-posta</label>
+    <input type="email" id="k_email" placeholder="E-posta adresinizi giriniz">
+  </div>
+  <div class="input-group">
+    <label>Şifre</label>
+    <div class="input-with-eye">
+      <input type="password" id="k_sifre" placeholder="Şifrenizi belirleyiniz">
+      <span onclick="togglePass('k_sifre')">👁️</span>
+    </div>
+  </div>
+  <div class="input-group">
+    <label>Şifre Tekrar</label>
+    <input type="password" id="k_sifre2" placeholder="Şifrenizi tekrar giriniz">
+  </div>
+</div>
+ 
+      <h3 class="section-title">Kişisel Bilgiler (Devam)</h3>
+<div class="form-grid">
+  <div class="input-group">
+    <label>Doğum Tarihi</label>
+    <input type="date" id="k_birthdate">
+  </div>
+</div>
+
+<h3 class="section-title">Ehliyet Bilgileri</h3>
+<div class="form-grid">
+  <div class="input-group">
+    <label>Ehliyet No</label>
+    <input type="text" id="k_ehliyet" placeholder="Ehliyet numaranızı giriniz">
+  </div>
+  <div class="input-group">
+    <label>Ehliyet Görseli</label>
+    <div class="file-upload" onclick="document.getElementById('k_ehliyet_file').click()">
+      <input type="file" id="k_ehliyet_file" accept=".jpg,.png" style="display:none" onchange="showFileName(this)">
+      <div class="file-upload-inner" id="k_file_label">
+        <span class="file-icon">⬆️</span>
+        <span>Ehliyet görselinizi yükleyiniz<br><small>(JPG, PNG)</small></span>
+      </div>
+    </div>
+  </div>
+</div>
+ 
+        <button class="btn-submit" onclick="registerKullanici()">Kaydı Tamamla</button>
+      </div>
+    </div>
+  </div>
+ 
+  <!-- YÖNETİCİ FORMU -->
+  <div class="form-screen" id="yoneticiForm" style="display:none;">
+    <div class="form-bg">
+      <div class="form-bg-overlay"></div>
+    </div>
+ 
+    <div class="form-container">
+      <button class="btn-back" onclick="goBack()">← Geri Dön</button>
+ 
+      <h2>Yönetici Kaydı</h2>
+      <p class="form-subtitle">Lütfen bilgilerinizi eksiksiz doldurun.</p>
+ 
+      <div class="form-body">
+        <h3 class="section-title">Kişisel Bilgiler</h3>
+    <div class="form-grid">
+  <div class="input-group">
+    <label>Ad Soyad</label>
+    <input type="text" id="y_adsoyad" placeholder="Adınızı ve soyadınızı giriniz">
+  </div>
+  <div class="input-group">
+    <label>TC Kimlik No</label>
+    <input type="text" id="y_tc" placeholder="TC kimlik numaranızı giriniz" maxlength="11">
+  </div>
+  <div class="input-group">
+    <label>Telefon</label>
+    <input type="tel" id="y_telefon" placeholder="Telefon numaranızı giriniz">
+  </div>
+  <div class="input-group">
+    <label>E-posta</label>
+    <input type="email" id="y_email" placeholder="E-posta adresinizi giriniz">
+  </div>
+  <div class="input-group">
+    <label>Şifre</label>
+    <div class="input-with-eye">
+      <input type="password" id="y_sifre" placeholder="Şifrenizi belirleyiniz">
+      <span onclick="togglePass('y_sifre')">👁️</span>
+    </div>
+  </div>
+  <div class="input-group">
+    <label>Şifre Tekrar</label>
+    <input type="password" id="y_sifre2" placeholder="Şifrenizi tekrar giriniz">
+  </div>
+</div>
+ 
+        <h3 class="section-title">Şirket Bilgileri</h3>
+        <div class="form-grid">
+  <div class="input-group">
+    <label>Şirket Adı</label>
+    <input type="text" id="y_sirket" placeholder="Şirket adınızı giriniz">
+  </div>
+  <div class="input-group">
+    <label>Vergi No</label>
+    <input type="text" id="y_vergino" placeholder="Vergi numaranızı giriniz">
+  </div>
+  <div class="input-group">
+    <label>Şirket Telefonu</label>
+    <input type="tel" id="y_sirket_tel" placeholder="Şirket telefon numarası">
+  </div>
+  <div class="input-group">
+  <label>İl</label>
+  <input type="text" id="y_city" placeholder="İl giriniz">
+</div>
+
+<div class="input-group">
+  <label>İlçe</label>
+  <input type="text" id="y_district" placeholder="İlçe giriniz">
+</div>
+<div class="input-group">
+  <label>Mahalle</label>
+  <input type="text" id="y_mahalle" placeholder="Mahalle giriniz">
+</div>
+<div class="input-group">
+  <label>Sokak</label>
+  <input type="text" id="y_sokak" placeholder="Sokak giriniz">
+</div>
+<div class="input-group">
+  <label>Bina No</label>
+  <input type="text" id="y_bina_no" placeholder="Bina no giriniz">
+</div>
+</div>
+ 
+        <h3 class="section-title">Görev Bilgileri</h3>
+        <div class="form-grid">
+          <div class="input-group full-width">
+            <label>Görev</label>
+            <select id="y_gorev">
+              <option value="">Görevinizi seçiniz</option>
+              <option value="mudur">Müdür</option>
+              <option value="supervisor">Supervisor</option>
+              <option value="staff">Personel</option>
+            </select>
+          </div>
+        </div>
+ 
+        <button class="btn-submit" onclick="registerYonetici()">Kaydı Tamamla</button>
+      </div>
+    </div>
+  </div>
+ 
+  <script src="js/register.js"></script>
+</body>
+</html>

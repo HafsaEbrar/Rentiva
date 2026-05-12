@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<title>Fatura</title>
+
+<style>
+
+body{
+    background:#0a0a0a;
+    color:white;
+    font-family:Arial;
+    padding:40px;
+}
+
+.fatura{
+    background:#1a1a2e;
+    padding:32px;
+    border-radius:16px;
+    max-width:700px;
+    margin:auto;
+}
+
+h1{
+    color:#4e8cff;
+}
+
+.satir{
+    margin-top:18px;
+    font-size:20px;
+}
+
+button{
+    margin-top:32px;
+    padding:14px 24px;
+    border:none;
+    border-radius:10px;
+    background:#4e8cff;
+    color:white;
+    font-size:18px;
+    cursor:pointer;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="fatura">
+
+    <h1>🧾 Fatura</h1>
+
+    <div id="faturaDetay"></div>
+
+    <button onclick="window.print()">
+
+        PDF İndir
+
+    </button>
+
+</div>
+
+<script>
+
+async function faturayiGetir(){
+
+    const invoiceId = localStorage.getItem("invoiceId");
+
+    const response = await fetch(
+        `http://localhost:8100/api/invoices/${invoiceId}`
+    );
+
+    const data = await response.json();
+
+    document.getElementById(
+        "faturaDetay"
+    ).innerHTML = `
+
+        <div class="satir">
+        Fatura No:
+        ${data.invoiceNo}
+        </div>
+
+        <div class="satir">
+        Tarih:
+        ${data.invoiceDate}
+        </div>
+
+        <div class="satir">
+        Tutar:
+        ₺${data.invoiceAmount}
+        </div>
+
+        <div class="satir">
+        Durum:
+        ${data.invoiceStatus}
+        </div>
+
+    `;
+}
+
+faturayiGetir();
+
+</script>
+
+</body>
+</html>

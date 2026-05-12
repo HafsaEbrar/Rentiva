@@ -21,8 +21,15 @@ public class Company {
     @Column(nullable = false, unique = true)
     private String taxNo;
 
-    @NotBlank(message = "Address cannot be empty")
-    private String address;
+    private String il;
+
+    private String ilce;
+
+    private String mahalle;
+
+    private String sokak;
+
+    private String binaNo;
 
     @NotBlank(message = "Phone cannot be empty")
     private String phone;
