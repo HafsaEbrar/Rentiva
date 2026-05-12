@@ -64,10 +64,10 @@ button{
 
 async function faturayiGetir(){
 
-    const invoiceId = 1;
+    const invoiceId = localStorage.getItem("invoiceId");
 
     const response = await fetch(
-        `http://localhost:8080/api/invoices/${invoiceId}`
+        `http://localhost:8100/api/invoices/${invoiceId}`
     );
 
     const data = await response.json();
