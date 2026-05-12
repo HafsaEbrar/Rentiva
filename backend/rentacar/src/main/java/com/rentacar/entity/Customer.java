@@ -16,6 +16,10 @@ public class Customer {
     @JoinColumn(name = "user_id")
     private User user;
 
+    @Column(name = "driver_license_number")
     private String driverLicenseNo;
+    
+
+    @Column(name = "license_image")
     private String driverLicenseImage;
 }

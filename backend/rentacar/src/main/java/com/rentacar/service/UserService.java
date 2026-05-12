@@ -1,5 +1,6 @@
 package com.rentacar.service;
 
+import com.rentacar.entity.Company;
 import com.rentacar.entity.Customer;
 import com.rentacar.entity.User;
 import com.rentacar.repository.CustomerRepository;
@@ -7,6 +8,8 @@ import com.rentacar.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.transaction.annotation.Transactional;
+import com.rentacar.service.CompanyService;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -16,7 +19,8 @@ import java.util.List;
 public class UserService {
 
     private final UserRepository userRepository;
-    private final CustomerRepository customerRepository; // ← EKLE
+    private final CustomerRepository customerRepository;
+    private final CompanyService companyService;
 
     private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
@@ -33,7 +37,7 @@ public class UserService {
         userRepository.deleteById(id);
     }
 
-    // ✅ USER REGISTER — customer kaydı otomatik oluşuyor
+    // ✅ USER REGISTER
     public User register(User user) {
 
         if (userRepository.findByEmail(user.getEmail()).isPresent()) {
@@ -44,6 +48,14 @@ public class UserService {
             throw new RuntimeException("TC Kimlik 11 haneli olmalı");
         }
 
+        // 18 yaş kontrolü
+        if (user.getBirthDate() == null) {
+            throw new RuntimeException("Doğum tarihi girilmeli");
+        }
+        if (user.getBirthDate().plusYears(18).isAfter(LocalDate.now())) {
+            throw new RuntimeException("18 yaşından küçükler kayıt olamaz");
+        }
+
         user.setRole("USER");
         user.setIsActive(true);
         user.setRegistrationDate(LocalDate.now());
@@ -51,7 +63,6 @@ public class UserService {
 
         User savedUser = userRepository.save(user);
 
-        // ← EKLE: customer kaydı otomatik oluştur
         Customer customer = new Customer();
         customer.setUser(savedUser);
         customer.setDriverLicenseNo("");
@@ -61,8 +72,10 @@ public class UserService {
         return savedUser;
     }
 
-    // ✅ ADMIN REGISTER
-    public User registerAdmin(User user) {
+    @Transactional
+    public User registerAdmin(User user, String companyName, String taxNumber,
+                              String phone, String email, String city, String district,
+                              String mahalle, String sokak, String binaNo) {
 
         if (userRepository.findByEmail(user.getEmail()).isPresent()) {
             throw new RuntimeException("Bu email zaten kayıtlı");
@@ -73,7 +86,21 @@ public class UserService {
         user.setRegistrationDate(LocalDate.now());
         user.setPassword(passwordEncoder.encode(user.getPassword()));
 
-        return userRepository.save(user);
+        User savedUser = userRepository.save(user);
+
+        Company company = new Company();
+        company.setCompanyName(companyName);
+        company.setTaxNo(taxNumber);
+        company.setPhone(phone);
+        company.setEmail(email);
+        company.setIl(city);
+        company.setIlce(district);
+        company.setMahalle(mahalle);
+        company.setSokak(sokak);
+        company.setBinaNo(binaNo);
+        companyService.saveCompany(company);
+
+        return savedUser;
     }
 
     // ✅ LOGIN
