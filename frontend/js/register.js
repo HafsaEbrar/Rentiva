@@ -76,8 +76,9 @@ async function registerKullanici() {
   const tc = document.getElementById('k_tc').value.trim();
   const ehliyet = document.getElementById('k_ehliyet').value.trim();
   const ehliyetFile = document.getElementById('k_ehliyet_file').files[0];
+  const birthDate = document.getElementById('k_birthdate').value; // ← EKLE
 
-  if (!adsoyad || !email || !telefon || !sifre || !tc || !ehliyet) {
+  if (!adsoyad || !email || !telefon || !sifre || !tc || !ehliyet || !birthDate) {
     alert('Lütfen tüm alanları doldurun.');
     return;
   }
@@ -99,7 +100,8 @@ async function registerKullanici() {
     password: sifre,
     nationalId: tc,
     driverLicenseNumber: ehliyet,
-    licenseImage: ehliyetBase64
+    licenseImage: ehliyetBase64,
+    birthDate: birthDate // ← EKLE
   };
 
   try {
@@ -135,6 +137,9 @@ async function registerYonetici() {
   const vergino = document.getElementById('y_vergino').value.trim();
   const city = document.getElementById('y_city').value.trim();
   const district = document.getElementById('y_district').value.trim();
+  const mahalle = document.getElementById('y_mahalle').value.trim();
+  const sokak = document.getElementById('y_sokak').value.trim();
+  const binaNo = document.getElementById('y_bina_no').value.trim();
   const gorev = document.getElementById('y_gorev').value;
 
   if (!adsoyad || !email || !telefon || !sifre || !tc || !sirket || !vergino || !gorev) {
@@ -155,8 +160,12 @@ async function registerYonetici() {
     nationalId: tc,
     companyName: sirket,
     taxNumber: vergino,
+    sirketTel: document.getElementById('y_sirket_tel').value.trim(),
     city: city,
-    district: district
+    district: district,
+    mahalle: mahalle,
+    sokak: sokak,
+    binaNo: binaNo
   };
 
   try {

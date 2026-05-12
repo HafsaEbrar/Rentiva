@@ -93,23 +93,31 @@
   </div>
 </div>
  
-        <h3 class="section-title">Ehliyet Bilgileri</h3>
-        <div class="form-grid">
-          <div class="input-group">
-            <label>Ehliyet No</label>
-            <input type="text" id="k_ehliyet" placeholder="Ehliyet numaranızı giriniz">
-          </div>
-          <div class="input-group">
-            <label>Ehliyet Görseli</label>
-            <div class="file-upload" onclick="document.getElementById('k_ehliyet_file').click()">
-              <input type="file" id="k_ehliyet_file" accept=".jpg,.png" style="display:none" onchange="showFileName(this)">
-              <div class="file-upload-inner" id="k_file_label">
-                <span class="file-icon">⬆️</span>
-                <span>Ehliyet görselinizi yükleyiniz<br><small>(JPG, PNG)</small></span>
-              </div>
-            </div>
-          </div>
-        </div>
+      <h3 class="section-title">Kişisel Bilgiler (Devam)</h3>
+<div class="form-grid">
+  <div class="input-group">
+    <label>Doğum Tarihi</label>
+    <input type="date" id="k_birthdate">
+  </div>
+</div>
+
+<h3 class="section-title">Ehliyet Bilgileri</h3>
+<div class="form-grid">
+  <div class="input-group">
+    <label>Ehliyet No</label>
+    <input type="text" id="k_ehliyet" placeholder="Ehliyet numaranızı giriniz">
+  </div>
+  <div class="input-group">
+    <label>Ehliyet Görseli</label>
+    <div class="file-upload" onclick="document.getElementById('k_ehliyet_file').click()">
+      <input type="file" id="k_ehliyet_file" accept=".jpg,.png" style="display:none" onchange="showFileName(this)">
+      <div class="file-upload-inner" id="k_file_label">
+        <span class="file-icon">⬆️</span>
+        <span>Ehliyet görselinizi yükleyiniz<br><small>(JPG, PNG)</small></span>
+      </div>
+    </div>
+  </div>
+</div>
  
         <button class="btn-submit" onclick="registerKullanici()">Kaydı Tamamla</button>
       </div>
@@ -182,6 +190,18 @@
 <div class="input-group">
   <label>İlçe</label>
   <input type="text" id="y_district" placeholder="İlçe giriniz">
+</div>
+<div class="input-group">
+  <label>Mahalle</label>
+  <input type="text" id="y_mahalle" placeholder="Mahalle giriniz">
+</div>
+<div class="input-group">
+  <label>Sokak</label>
+  <input type="text" id="y_sokak" placeholder="Sokak giriniz">
+</div>
+<div class="input-group">
+  <label>Bina No</label>
+  <input type="text" id="y_bina_no" placeholder="Bina no giriniz">
 </div>
 </div>
  
